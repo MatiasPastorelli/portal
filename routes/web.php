@@ -15,3 +15,5 @@ Route::get('/', 'PresentacionController@inicio');
 Route::get('/registrar', 'UsuarioController@registrarUsuario');
 Route::get('/login', 'UsuarioController@loginUsuario');
 Route::post('/storeRegistrarUsuario', 'UsuarioController@storeRegistrarUsuario');
+Route::post('/validarLoginUsuario', 'UsuarioController@validarLoginUsuario');
+Route::get('/cerrarSesion', 'UsuarioController@cerrarSesion');

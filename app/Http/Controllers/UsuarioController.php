@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Encryption\DecryptException;
 use Illuminate\Database\QueryException;
 use App\Http\Requests\storeRegistrarUsuarioRequest;
+use App\Http\Requests\validarLoginRequest;
 use App\Usuario;
 use Session;
 
@@ -103,11 +104,7 @@ class UsuarioController extends Controller
         $usuario->tokenLargo = Crypt::encrypt($usuario->idUsuario);
         $usuario->save();
 
-        Session::put('idUsuario', $usuario->idUsuario);
-        Session::put('idTipoUsuario', $usuario->idTipoUsuario);
-        Session::put('email', $usuario->email);
-        Session::put('nombre', $usuario->nombre);
-        Session::put('apellido', $usuario->apellido);
+        $this->variablesLoginASession($usuario);
 
         return redirect('/');
     }
@@ -117,8 +114,52 @@ class UsuarioController extends Controller
         return view ('presentacion.login');
     }
 
-    public function validarLoginUsuario(Request $request) {
+    public function validarLoginUsuario(validarLoginRequest $request) {
+        
+        try {
+            $usuario = Usuario::where('email', '=', $request->email)
+                                ->where('password', '=', $request->password)
+                                ->firstOrFail();
 
+            $this->variablesLoginASession($usuario);
 
+            return redirect('/');
+
+        } catch (ModelNotFoundException $e) {
+            return back();
+        } catch (Exception $e) {
+            return back();
+        }
+
+    }
+
+    public function cerrarSesion() {
+
+        $this->forgetVariablesLoginSession();
+
+        return redirect('/');
+    }
+    
+
+    private function variablesLoginASession($usuario) {
+
+        Session::put('idUsuario', $usuario->idUsuario);
+        Session::put('idTipoUsuario', $usuario->idTipoUsuario);
+        Session::put('email', $usuario->email);
+        Session::put('nombre', $usuario->nombre);
+        Session::put('apellido', $usuario->apellido);
+
+        return;
+    }
+
+    private function forgetVariablesLoginSession() {
+
+        Session::forget('idUsuario');
+        Session::forget('idTipoUsuario');
+        Session::forget('email');
+        Session::forget('nombre');
+        Session::forget('apellido');
+
+        return;
     }
 }

@@ -46,7 +46,7 @@
                         <button type="submit" class="btn btn-success btn-block">Crear cuenta</button>
                      </form>
                      <div class="mt-4 text-center">
-                        Have an account - <a href="login.html">Login</a>
+                        ¿Ya tienes cuenta? - <a href="login.html">Login</a>
                      </div>
                      <div class="mt-4 text-center login-with-social">
                         <button type="button" class="btn btn-facebook btn-block"><i class="mdi mdi-facebook"></i> Login With Facebook</button>

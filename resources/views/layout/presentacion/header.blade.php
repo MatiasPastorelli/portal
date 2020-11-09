@@ -56,21 +56,23 @@
                         <a class="dropdown-item" href="social-profiles.html">Mis cotizaciones</a>
                         <a class="dropdown-item" href="my-properties.html">Historial</a>
                         <a class="dropdown-item" href="favorite-properties.html">Planes para profesionales</a>
-                        <a class="dropdown-item" href="add-property.html">Salir</a>
+                        <a class="dropdown-item" href="{{ asset('/cerrarSesion') }}">Salir</a>
                      </div>
                   </li>
                @endif
             </ul>
-            <div class="my-2 my-lg-0">
-               <ul class="list-inline main-nav-right">
-                  <li class="list-inline-item">
-                     <a class="btn btn-link btn-sm" href="{{ asset('/login') }}">Login</a>
-                  </li>
-                  <li class="list-inline-item">
-                     <a class="btn btn-success btn-sm" href="{{ asset('/registrar') }}">Registrar</a>
-                  </li>
-               </ul>
-            </div>
+            @if (!Session::has('idUsuario'))
+               <div class="my-2 my-lg-0">
+                  <ul class="list-inline main-nav-right">
+                     <li class="list-inline-item">
+                        <a class="btn btn-link btn-sm" href="{{ asset('/login') }}">Login</a>
+                     </li>
+                     <li class="list-inline-item">
+                        <a class="btn btn-success btn-sm" href="{{ asset('/registrar') }}">Registrar</a>
+                     </li>
+                  </ul>
+               </div>
+            @endif
          </div>
       </div>
    </nav>

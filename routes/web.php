@@ -11,6 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('presentacion.index');
-});
+Route::get('/', 'PresentacionController@inicio');
+Route::get('/registrar', 'UsuarioController@registrarUsuario');
+Route::get('/login', 'UsuarioController@loginUsuario');
+Route::post('/storeRegistrarUsuario', 'UsuarioController@storeRegistrarUsuario');

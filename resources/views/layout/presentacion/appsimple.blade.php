@@ -18,13 +18,10 @@
       @yield('css')
    </head>
    <body>
-      @include('layout.presentacion.header')
 
       @yield('content')
 
       @yield('modals')
-
-      @include('layout.presentacion.footer')
 
       <script src="{{ asset('js/app.js') }}"></script>
       <script src="{{ asset('js/jqBootstrapValidation.js') }}"></script>

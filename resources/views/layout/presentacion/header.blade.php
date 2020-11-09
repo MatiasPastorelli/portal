@@ -11,11 +11,6 @@
          </button>
          <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-               <li class="nav-item">
-                  <a class="nav-link" href="index.html">
-                  Home
-                  </a>
-               </li>
                <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown"
                      aria-haspopup="true" aria-expanded="false">
@@ -50,39 +45,29 @@
                      <a class="dropdown-item" href="blog-single.html">Blog Single</a>
                   </div>
                </li>
-               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown"
-                     aria-haspopup="true" aria-expanded="false">
-                  My Account
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdownPortfolio">
-                     <a class="dropdown-item" href="user-profile.html">User Profile</a>
-                     <a class="dropdown-item" href="social-profiles.html">Social Profiles</a>
-                     <a class="dropdown-item" href="my-properties.html">My Properties</a>
-                     <a class="dropdown-item" href="favorite-properties.html">Favorite Properties</a>
-                     <a class="dropdown-item" href="add-property.html">Add Property</a>
-                  </div>
-               </li>
-               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown"
-                     aria-haspopup="true" aria-expanded="false">
-                  Pages
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdownPortfolio">
-                     <a class="dropdown-item" href="about.html">About Us</a>
-                     <a class="dropdown-item" href="faq.html">FAQ</a>
-                     <a class="dropdown-item" href="contact.html">Contact</a>
-                     <a class="dropdown-item" href="not-found.html">404 Page</a>
-                  </div>
-               </li>
+               @if (Session::has('idUsuario'))
+                  <li class="nav-item dropdown">
+                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                     {{ Session::get('nombre') }}
+                     </a>
+                     <div class="dropdown-menu" aria-labelledby="navbarDropdownPortfolio">
+                        <a class="dropdown-item" href="user-profile.html">Mi cuenta</a>
+                        <a class="dropdown-item" href="social-profiles.html">Mis cotizaciones</a>
+                        <a class="dropdown-item" href="my-properties.html">Historial</a>
+                        <a class="dropdown-item" href="favorite-properties.html">Planes para profesionales</a>
+                        <a class="dropdown-item" href="add-property.html">Salir</a>
+                     </div>
+                  </li>
+               @endif
             </ul>
             <div class="my-2 my-lg-0">
                <ul class="list-inline main-nav-right">
                   <li class="list-inline-item">
-                     <a class="btn btn-link btn-sm" href="login.html">Sign In</a>
+                     <a class="btn btn-link btn-sm" href="{{ asset('/login') }}">Login</a>
                   </li>
                   <li class="list-inline-item">
-                     <a class="btn btn-success btn-sm" href="register.html">Sign Up</a>
+                     <a class="btn btn-success btn-sm" href="{{ asset('/registrar') }}">Registrar</a>
                   </li>
                </ul>
             </div>

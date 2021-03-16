@@ -11,19 +11,19 @@ class Usuario extends Model
     protected $primaryKey = 'idUsuario';
 
     protected $fillable = [
-    	'email',
-    	'nombre',
-    	'apellido',
-    	'idComuna',
-    	'idProvincia',
-    	'idRegion',
-    	'idPais',
-    	'tokenCorto',
-    	'tokenLargo',
-    	'telefono',
-    	'idTipoUsuario',
-    	'idCliente',
-        'password',
-    	'cuentaActivada'
+    	'emailUsuario',
+    	'nombreUsuario',
+    	'apellidoUsuario',
+    	//'idComuna',
+    	//'idProvincia',
+    	//'idRegion',
+    	//'idPais',
+    	//'tokenCorto',
+    	//'tokenLargo',
+    	//'telefono',
+    	//'idTipoUsuario',
+    	//'idCliente',
+        'passwordUsuario',
+    	//'cuentaActivada'
     ];
 }

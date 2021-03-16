@@ -7,7 +7,7 @@
 @endsection
 
 @section('css')
-    
+
 @endsection
 
 @section('content')
@@ -20,7 +20,7 @@
                   <div class="card-body">
                      <h5 class="card-title mb-4">Completa tus datos</h5>
                      <form action="{{ asset('/storeRegistrarUsuario') }}" method="POST">
-                        @csrf
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="form-group">
                            <label>Nombre <span class="text-danger">*</span></label>
                            <input type="text" class="form-control" placeholder="Nombre" id="nombre" name="nombre">
@@ -46,7 +46,7 @@
                         <button type="submit" class="btn btn-success btn-block">Crear cuenta</button>
                      </form>
                      <div class="mt-4 text-center">
-                        ¿Ya tienes cuenta? - <a href="login.html">Login</a>
+                        ¿Ya tienes cuenta? - <a href="{{ url('/login') }}">Login</a>
                      </div>
                      <div class="mt-4 text-center login-with-social">
                         <button type="button" class="btn btn-facebook btn-block"><i class="mdi mdi-facebook"></i> Login With Facebook</button>
@@ -60,12 +60,15 @@
       </div>
    </section>
    <!-- End Register -->
+    @jquery
+    @toastr_js
+    @toastr_render
 @endsection
 
 @section('modals')
-    
+
 @endsection
 
 @section('scripts')
-    
+
 @endsection

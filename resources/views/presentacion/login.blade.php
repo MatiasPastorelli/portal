@@ -7,7 +7,7 @@
 @endsection
 
 @section('css')
-    
+
 @endsection
 
 @section('content')
@@ -37,7 +37,7 @@
                         <button type="submit" class="btn btn-success btn-block">Ingresar</button>
                      </form>
                      <div class="mt-4 text-center">
-                        ¿No tienes cuenta? <a href="register.html">Regístrate</a>
+                        ¿No tienes cuenta? <a href="{{ url('/registrar') }}">Regístrate</a>
                      </div>
                      <div class="mt-4 text-center login-with-social">
                         <button type="button" class="btn btn-facebook btn-block"><i class="mdi mdi-facebook"></i> Login With Facebook</button>
@@ -56,9 +56,9 @@
 @endsection
 
 @section('modals')
-    
+
 @endsection
 
 @section('scripts')
-    
+
 @endsection

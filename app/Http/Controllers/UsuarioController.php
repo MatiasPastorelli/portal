@@ -11,6 +11,7 @@ use App\Http\Requests\storeRegistrarUsuarioRequest;
 use App\Http\Requests\validarLoginRequest;
 use App\Usuario;
 use Session;
+use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
 
 class UsuarioController extends Controller
 {
@@ -97,11 +98,22 @@ class UsuarioController extends Controller
         return view ('presentacion.registrar');
     }
 
-    public function storeRegistrarUsuario(storeRegistrarUsuarioRequest $request) {
+    public function storeRegistrarUsuario(Request $request) {
 
-        $usuario = new Usuario($request->all());
-        $usuario->tokenCorto = uniqid();
-        $usuario->tokenLargo = Crypt::encrypt($usuario->idUsuario);
+        $findUsuario = Usuario::where('emailUsuario',$request->email)->first();
+
+        if($findUsuario)
+        {
+            toastr()->error('El correo ingresado ya existe');
+            return back();
+        }
+
+        $usuario = new Usuario( ['nombreUsuario' => $request->nombre,
+                                 'apellidoUsuario' => $request->apellido,
+                                 'emailUsuario' => $request->email,
+                                 'passwordUsuario' => $request->password,]);
+        //$usuario->tokenCorto = uniqid();
+        //$usuario->tokenLargo = Crypt::encrypt($usuario->idUsuario);
         $usuario->save();
 
         $this->variablesLoginASession($usuario);
@@ -114,11 +126,11 @@ class UsuarioController extends Controller
         return view ('presentacion.login');
     }
 
-    public function validarLoginUsuario(validarLoginRequest $request) {
-        
+    public function validarLoginUsuario(Request $request) {
+
         try {
-            $usuario = Usuario::where('email', '=', $request->email)
-                                ->where('password', '=', $request->password)
+            $usuario = Usuario::where('emailUsuario', '=', $request->email)
+                                ->where('passwordUsuario', '=', $request->password)
                                 ->firstOrFail();
 
             $this->variablesLoginASession($usuario);
@@ -139,15 +151,15 @@ class UsuarioController extends Controller
 
         return redirect('/');
     }
-    
+
 
     private function variablesLoginASession($usuario) {
 
         Session::put('idUsuario', $usuario->idUsuario);
-        Session::put('idTipoUsuario', $usuario->idTipoUsuario);
-        Session::put('email', $usuario->email);
-        Session::put('nombre', $usuario->nombre);
-        Session::put('apellido', $usuario->apellido);
+        //Session::put('idTipoUsuario', $usuario->idTipoUsuario);
+        Session::put('emailUsuario', $usuario->email);
+        Session::put('nombreUsuario', $usuario->nombre);
+        Session::put('apellidoUsuario', $usuario->apellido);
 
         return;
     }
@@ -155,10 +167,10 @@ class UsuarioController extends Controller
     private function forgetVariablesLoginSession() {
 
         Session::forget('idUsuario');
-        Session::forget('idTipoUsuario');
-        Session::forget('email');
-        Session::forget('nombre');
-        Session::forget('apellido');
+        //Session::forget('idTipoUsuario');
+        Session::forget('emailUsuario');
+        Session::forget('nombreUsuario');
+        Session::forget('apellidoUsuario');
 
         return;
     }

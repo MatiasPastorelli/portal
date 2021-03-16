@@ -7,7 +7,7 @@
 @endsection
 
 @section('css')
-    
+
 @endsection
 
 @section('content')
@@ -15,16 +15,48 @@
       <section class="site-slider">
          <div id="siteslider" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
-               <li data-target="#siteslider" data-slide-to="0" class="active"></li>
-               <li data-target="#siteslider" data-slide-to="1"></li>
+               <li data-target="#siteslider" data-slide-to="1" class="active"></li>
+               <li data-target="#siteslider" data-slide-to="2"></li>
+               <li data-target="#siteslider" data-slide-to="3"></li>
+               <li data-target="#siteslider" data-slide-to="4"></li>
+               <li data-target="#siteslider" data-slide-to="5"></li>
             </ol>
             <div class="carousel-inner" role="listbox">
-               <div class="carousel-item active" style="background-image: url('img/slider/1.jpg')">
-                  <div class="overlay"></div>
+               <div class="carousel-item active">
+                <div class="">
+                    <a href="https://mdbootstrap.com/" target="_blank">
+                        <img   src="img/carousel/1.png" alt="1">
+                    </a>
+                </div>
                </div>
-               <div class="carousel-item" style="background-image: url('img/slider/2.jpg')">
-                  <div class="overlay"></div>
+               <div class="carousel-item">
+                  <div class="">
+                    <a href="https://mdbootstrap.com/" target="_blank">
+                        <img class="d-block w-100" src="img/carousel/2.png" alt="2">
+                    </a>
+                  </div>
                </div>
+               <div class="carousel-item">
+                <div class="">
+                    <a href="https://mdbootstrap.com/" target="_blank">
+                        <img class="d-block w-100" src="img/carousel/3.png" alt="3">
+                    </a>
+                </div>
+             </div>
+             <div class="carousel-item">
+                <div class="">
+                <a href="https://mdbootstrap.com/" target="_blank">
+                    <img class="d-block w-100" src="img/carousel/4.png" alt="4">
+                </a>
+            </div>
+                </div>
+             <div class="carousel-item">
+                <div class="">
+                    <a href="https://mdbootstrap.com/" target="_blank">
+                        <img class="d-block w-100" src="img/carousel/5.png" alt="5">
+                    </a>
+                </div>
+             </div>
             </div>
             <a class="carousel-control-prev" href="#siteslider" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -35,7 +67,7 @@
             <span class="sr-only">Next</span>
             </a>
          </div>
-         <div class="slider-form">
+         <!--<div class="slider-form">
             <div class="container">
                <div class="text-center mb-5">
                   <h6 class="subtitle mb-1 mt-0 text-shadow text-dark">Uncover the best offers on the real estate
@@ -134,6 +166,7 @@
                </form>
             </div>
          </div>
+        -->
       </section>
       <!-- End Main Slider With Form -->
       <!-- Properties by City -->
@@ -657,9 +690,9 @@
 @endsection
 
 @section('modals')
-    
+
 @endsection
 
 @section('scripts')
-    
+
 @endsection

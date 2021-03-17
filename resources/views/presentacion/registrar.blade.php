@@ -40,18 +40,13 @@
                         <div class="form-group">
                            <div class="custom-control custom-checkbox">
                               <input type="checkbox" class="custom-control-input" id="checktc" name="checktc">
-                              <label class="custom-control-label" for="checktc">De acuerdo con los <a href="terms.html">Términos y condiciones</a></label>
+                              <label class="custom-control-label" for="checktc">Acepto los <a href="{{asset('/terminos')}}" target="_blank" style="color: #3483fa;">Términos y Condiciones</a> y autorizo el uso de mis datos de acuerdo a la <a href="{{asset('/declaracionPrivacidad')}}" target="_blank" style="color: #3483fa;">Declaracion de Privacidad</a></label>
                            </div>
                         </div>
                         <button type="submit" class="btn btn-success btn-block">Crear cuenta</button>
                      </form>
                      <div class="mt-4 text-center">
-                        ¿Ya tienes cuenta? - <a href="{{ url('/login') }}">Login</a>
-                     </div>
-                     <div class="mt-4 text-center login-with-social">
-                        <button type="button" class="btn btn-facebook btn-block"><i class="mdi mdi-facebook"></i> Login With Facebook</button>
-                        <button type="button" class="btn btn-twitter btn-block"><i class="mdi mdi-twitter"></i> Login With Twitter</button>
-                        <button type="button" class="btn btn-google btn-block"><i class="mdi mdi-google-plus"></i> Login With Google</button>
+                        ¿Ya tienes cuenta? - <a href="{{ asset('/login') }}">Login</a>
                      </div>
                   </div>
                </div>

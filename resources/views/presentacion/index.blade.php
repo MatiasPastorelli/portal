@@ -20,43 +20,39 @@
                <li data-target="#siteslider" data-slide-to="3"></li>
                <li data-target="#siteslider" data-slide-to="4"></li>
                <li data-target="#siteslider" data-slide-to="5"></li>
+               <li data-target="#siteslider" data-slide-to="6"></li>
             </ol>
             <div class="carousel-inner" role="listbox">
-               <div class="carousel-item active">
-                <div class="">
-                    <a href="https://mdbootstrap.com/" target="_blank">
-                        <img   src="img/carousel/1.png" alt="1">
-                    </a>
+                <div class="carousel-item active">
+                        <a href="imagen1.html" target="_blank">
+                            <img   src="img/carousel/1.png" alt="1">
+                        </a>
                 </div>
-               </div>
-               <div class="carousel-item">
-                  <div class="">
-                    <a href="https://mdbootstrap.com/" target="_blank">
-                        <img class="d-block w-100" src="img/carousel/2.png" alt="2">
-                    </a>
-                  </div>
-               </div>
-               <div class="carousel-item">
-                <div class="">
-                    <a href="https://mdbootstrap.com/" target="_blank">
+                <div class="carousel-item">
+                        <a href="imagen2.html" target="_blank">
+                            <img class="d-block w-100" src="img/carousel/2.png" alt="2">
+                        </a>
+                </div>
+                <div class="carousel-item">
+                    <a href="imagen3.html" target="_blank">
                         <img class="d-block w-100" src="img/carousel/3.png" alt="3">
                     </a>
                 </div>
-             </div>
-             <div class="carousel-item">
-                <div class="">
-                <a href="https://mdbootstrap.com/" target="_blank">
-                    <img class="d-block w-100" src="img/carousel/4.png" alt="4">
-                </a>
-            </div>
-                </div>
-             <div class="carousel-item">
-                <div class="">
-                    <a href="https://mdbootstrap.com/" target="_blank">
-                        <img class="d-block w-100" src="img/carousel/5.png" alt="5">
+                <div class="carousel-item">
+                    <a href="imagen4.html" target="_blank">
+                        <img class="d-block w-100" src="img/carousel/4.png" alt="4">
                     </a>
                 </div>
-             </div>
+                <div class="carousel-item">
+                        <a href="imagen5.html" target="_blank">
+                            <img class="d-block w-100" src="img/carousel/5.png" alt="5">
+                        </a>
+                </div>
+                <div class="carousel-item">
+                        <a href="imagen6.html" target="_blank">
+                            <img class="d-block w-100" src="img/carousel/6.jpg" alt="6">
+                        </a>
+                </div>
             </div>
             <a class="carousel-control-prev" href="#siteslider" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>

@@ -93,59 +93,64 @@ class UsuarioController extends Controller
 
 
     // *** METODO DE REGISTRO Y LOGIN DE USUARIO ***
-    public function registrarUsuario() {
+    public function registrarUsuario()
+    {
 
-        return view ('presentacion.registrar');
+        return view('presentacion.registrar');
     }
 
-    public function storeRegistrarUsuario(Request $request) {
+    public function storeRegistrarUsuario(Request $request)
+    {
 
-        $findUsuario = Usuario::where('emailUsuario',$request->email)->first();
+        $findUsuario = Usuario::where('emailUsuario', $request->email)->first();
 
-        if($findUsuario)
-        {
+        if ($findUsuario) {
             toastr()->error('El correo ingresado ya existe');
             return back();
         }
 
-        $usuario = new Usuario( ['nombreUsuario' => $request->nombre,
-                                 'apellidoUsuario' => $request->apellido,
-                                 'emailUsuario' => $request->email,
-                                 'passwordUsuario' => $request->password,]);
+        $usuario = new Usuario([
+            'nombreUsuario' => $request->nombre,
+            'apellidoUsuario' => $request->apellido,
+            'emailUsuario' => $request->email,
+            'passwordUsuario' => $request->password,
+        ]);
         //$usuario->tokenCorto = uniqid();
         //$usuario->tokenLargo = Crypt::encrypt($usuario->idUsuario);
         $usuario->save();
 
         $this->variablesLoginASession($usuario);
 
+
         return redirect('/');
     }
 
-    public function loginUsuario() {
+    public function loginUsuario()
+    {
 
-        return view ('presentacion.login');
+        return view('presentacion.login');
     }
 
-    public function validarLoginUsuario(Request $request) {
+    public function validarLoginUsuario(Request $request)
+    {
 
         try {
             $usuario = Usuario::where('emailUsuario', '=', $request->email)
-                                ->where('passwordUsuario', '=', $request->password)
-                                ->firstOrFail();
+                ->where('passwordUsuario', '=', $request->password)
+                ->firstOrFail();
 
             $this->variablesLoginASession($usuario);
 
             return redirect('/');
-
         } catch (ModelNotFoundException $e) {
             return back();
         } catch (Exception $e) {
             return back();
         }
-
     }
 
-    public function cerrarSesion() {
+    public function cerrarSesion()
+    {
 
         $this->forgetVariablesLoginSession();
 
@@ -153,7 +158,8 @@ class UsuarioController extends Controller
     }
 
 
-    private function variablesLoginASession($usuario) {
+    private function variablesLoginASession($usuario)
+    {
 
         Session::put('idUsuario', $usuario->idUsuario);
         //Session::put('idTipoUsuario', $usuario->idTipoUsuario);
@@ -164,7 +170,8 @@ class UsuarioController extends Controller
         return;
     }
 
-    private function forgetVariablesLoginSession() {
+    private function forgetVariablesLoginSession()
+    {
 
         Session::forget('idUsuario');
         //Session::forget('idTipoUsuario');

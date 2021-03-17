@@ -17,3 +17,9 @@ Route::get('/login', 'UsuarioController@loginUsuario');
 Route::post('/storeRegistrarUsuario', 'UsuarioController@storeRegistrarUsuario');
 Route::post('/validarLoginUsuario', 'UsuarioController@validarLoginUsuario');
 Route::get('/cerrarSesion', 'UsuarioController@cerrarSesion');
+Route::get('/terminos', function () {
+    return view('terminos/terminosCondiciones');
+});
+Route::get('/declaracionPrivacidad', function () {
+    return view('terminos/declaracionPrivacidad');
+});

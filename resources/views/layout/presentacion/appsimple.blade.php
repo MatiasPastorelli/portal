@@ -19,6 +19,8 @@
    </head>
    <body>
 
+      @include('common.errors')
+
       @yield('content')
 
       @yield('modals')

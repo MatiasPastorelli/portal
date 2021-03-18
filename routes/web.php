@@ -23,3 +23,14 @@ Route::get('/terminos', function () {
 Route::get('/declaracionPrivacidad', function () {
     return view('terminos/declaracionPrivacidad');
 });
+Route::get('/privacidadConfidencialidad', function () {
+    return view('terminos/privacidadConfidencialidad');
+});
+Route::get('/terminosUso', function () {
+    return view('terminos/terminosCondicionesUso');
+});
+
+Route::get('notificacion/cuentaYaActivada', 'ActivarCuentaController@cuentaYaActivada');
+Route::get('notificacion/cuentaActivadaCorrectamente', 'ActivarCuentaController@cuentaActivadaCorrectamente');
+Route::get('notificacion/cuentaNoEncontrada', 'ActivarCuentaController@cuentaNoEncontrada');
+Route::get('notificacion/errorInterno', 'ActivarCuentaController@errorInterno');

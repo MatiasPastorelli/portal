@@ -14,16 +14,15 @@ class Usuario extends Model
     	'emailUsuario',
     	'nombreUsuario',
     	'apellidoUsuario',
-    	//'idComuna',
-    	//'idProvincia',
+    	'rutUsuario',
     	//'idRegion',
     	//'idPais',
-    	//'tokenCorto',
+    	'tokenCorto',
     	//'tokenLargo',
     	//'telefono',
     	//'idTipoUsuario',
-    	//'idCliente',
+    	'aceptaTerminos',
         'passwordUsuario',
-    	//'cuentaActivada'
+    	'cuentaActivada'
     ];
 }

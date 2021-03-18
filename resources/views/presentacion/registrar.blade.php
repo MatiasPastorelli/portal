@@ -30,6 +30,10 @@
                            <input type="text" class="form-control" placeholder="Apellido" id="apellido" name="apellido">
                         </div>
                         <div class="form-group">
+                           <label>Rut <span class="text-danger">*</span></label>
+                           <input type="text" class="form-control" placeholder="Rut" id="rut" name="rut">
+                        </div>
+                        <div class="form-group">
                            <label>E-mail <span class="text-danger">*</span></label>
                            <input type="email" class="form-control" placeholder="E-mail" id="email" name="email">
                         </div>

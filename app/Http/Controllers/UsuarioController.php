@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Crypt;
@@ -10,8 +11,13 @@ use Illuminate\Database\QueryException;
 use App\Http\Requests\storeRegistrarUsuarioRequest;
 use App\Http\Requests\validarLoginRequest;
 use App\Usuario;
+use Mail;
+use App\Mail\ActivarCuentaEmail;
 use Session;
 use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
+use App\Actions\VerificarRutAction;
+
+
 
 class UsuarioController extends Controller
 {
@@ -101,28 +107,66 @@ class UsuarioController extends Controller
 
     public function storeRegistrarUsuario(Request $request)
     {
+        
+        $rules = [
+            'rut' => 'required',
+            'nombre' => 'required',
+            'apellido' => 'required',
+            'email' => 'required',
+            'password' =>
+                ['required',
+                'min:6',
+                'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X]).*$/'],  // contener mayus, minus y numeros
+            'checktc' => 'required'];
 
-        $findUsuario = Usuario::where('emailUsuario', $request->email)->first();
+        $validator = Validator::make($request->all(), $rules);
 
-        if ($findUsuario) {
-            toastr()->error('El correo ingresado ya existe');
+        if ($validator->fails())
+        {
+            $errors = $validator->errors();
+            //return $errors;
+            return back()->with('errors', $errors);
+        }
+
+        $VerificarRutAction = new VerificarRutAction();
+        $a = $VerificarRutAction->execute($request->rut);
+
+        if($a == false)
+        {
+            toastr()->error('El rut ingresado no es valido');
             return back();
         }
 
         $usuario = new Usuario([
             'nombreUsuario' => $request->nombre,
             'apellidoUsuario' => $request->apellido,
+            'rutUsuario' => $request->rut,
             'emailUsuario' => $request->email,
             'passwordUsuario' => $request->password,
+            'aceptaTerminos' => 1, 
+            'tokenCorto' => uniqid(),
+            'cuentaActivada' => 0,
         ]);
-        //$usuario->tokenCorto = uniqid();
-        //$usuario->tokenLargo = Crypt::encrypt($usuario->idUsuario);
+
         $usuario->save();
 
-        $this->variablesLoginASession($usuario);
+        
+        $datosCorreo = new \stdClass();
+        $datosCorreo->token = $usuario->tokenCorto;
+        $datosCorreo->sender = 'touchouse';
+        $datosCorreo->receiver = "Usuario";
+        $datosCorreo->idTipoFooter = 1;
+       // $datosCorreo->titulo = $paraFooter->titulo;
+        //$datosCorreo->imagenNoticia = $paraFooter->imagenNoticia;
+        //$datosCorreo->textoResumen = $paraFooter->textoResumen;
 
-
-        return redirect('/');
+        Mail::to($request->email)
+                            ->bcc('matias@informatica.isbast.com')
+                            ->send(new ActivarCuentaEmail($datosCorreo));
+        
+        toastr()->success('Active su cuenta mediante el correo enviado', "Se ha enviado un correo electronico a su email para activar su cuenta", ['positionClass' => 'toast-bottom-right']);
+        //$this->variablesLoginASession($usuario);
+        return redirect('/login');
     }
 
     public function loginUsuario()
@@ -133,16 +177,23 @@ class UsuarioController extends Controller
 
     public function validarLoginUsuario(Request $request)
     {
-
         try {
             $usuario = Usuario::where('emailUsuario', '=', $request->email)
                 ->where('passwordUsuario', '=', $request->password)
                 ->firstOrFail();
 
+            if($usuario->cuentaActivada == 0)
+            {
+                toastr()->error('Su cuenta aun no a sido activada');
+                return back();
+            }    
+
+
             $this->variablesLoginASession($usuario);
 
             return redirect('/');
         } catch (ModelNotFoundException $e) {
+            toastr()->error('Correo o password incorrecto');
             return back();
         } catch (Exception $e) {
             return back();

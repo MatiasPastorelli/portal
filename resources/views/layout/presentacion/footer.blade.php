@@ -130,6 +130,10 @@
       </div>
    </div>
 </section>
+
+@jquery
+@toastr_js
+@toastr_render
 <!-- End Footer -->
 <!-- Copyright -->
 <section class="pt-4 pb-4">

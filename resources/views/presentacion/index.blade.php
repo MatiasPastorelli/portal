@@ -25,7 +25,7 @@
             <div class="carousel-inner" role="listbox">
                 <div class="carousel-item active">
                         <a href="imagen1.html" target="_blank">
-                            <img   src="img/carousel/1.png" alt="1">
+                            <img  class="d-block w-100" src="img/carousel/1.png" alt="1">
                         </a>
                 </div>
                 <div class="carousel-item">
@@ -683,6 +683,9 @@
          </div>
       </section>
       <!-- End Join Team -->
+@jquery
+@toastr_js
+@toastr_render     
 @endsection
 
 @section('modals')

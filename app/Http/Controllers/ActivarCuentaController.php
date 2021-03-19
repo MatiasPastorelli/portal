@@ -26,7 +26,7 @@ class ActivarCuentaController extends Controller
 	    			// DEPRECATED
                     //$rut = Crypt::decrypt($request->t);
 	    			//$usuarioEncontrado = Usuario::where('rut', '=', $rut)->firstOrFail();
-                    
+
                     $usuarioEncontrado = Usuario::where('tokenCorto', '=', $request->t)->firstOrFail();
 	    			if ($usuarioEncontrado) {
 	    				// detectando si la cuenta esta previamente activada
@@ -36,7 +36,7 @@ class ActivarCuentaController extends Controller
 	    				} else {
 	    					// activando la cuenta si no está activada aun
 
-                                                            
+
 		    				$usuarioEncontrado->cuentaActivada = 1;
 		    				$usuarioEncontrado->save();
 	    				}
@@ -89,75 +89,7 @@ class ActivarCuentaController extends Controller
     	}
     }
 
-    public function activarCuentaSMS(Request $request) { // GET ../api/activarCuentaSMS?tsms=.....
 
-        // activacion de cuenta mediante SMS "NO UTILIZANDO Crypt" sino que llegando directamente al idUsuario
-        try {
-            if ($request) {
-                if (isset($request->tsms)) {
-                    // DEPRECATED
-                    //$rut = Crypt::decrypt($request->t);
-                    //$usuarioEncontrado = Usuario::where('rut', '=', $rut)->firstOrFail();
-                    
-                    $usuarioEncontrado = Usuario::where('idUsuario', '=', $request->tsms)->firstOrFail();
-                    if ($usuarioEncontrado) {
-                        // detectando si la cuenta esta previamente activada
-                        if ($usuarioEncontrado->cuentaActivada == true) {
-                            return redirect('notificacion/cuentaYaActivada');
-                        } else {
-                            // activando la cuenta si no está activada aun
-                            $usuarioEncontrado->cuentaActivada = true;
-                            $usuarioEncontrado->fechaActivada = date('Y-m-d H:i:s');
-                            $usuarioEncontrado->save();
-                        }
-                    }
-
-                    // enviando correo electronico de bienvenida
-                    $datosCorreo = new \stdClass();
-                    $datosCorreo->rut = $usuarioEncontrado->rut;
-                    $datosCorreo->correo = $usuarioEncontrado->correo;
-                    $datosCorreo->contrasena = $usuarioEncontrado->contrasena;
-                    $datosCorreo->sender = 'isbast';
-                    $datosCorreo->receiver = $usuarioEncontrado->nombre;
-
-                    // agregando datos del registro random al footer (REQUERIMIENTO)
-                    $paraFooter = AvisosHelper::obtenerFooterAleatorio();
-
-                    if ($paraFooter->idTipoFooter == 1) { // si es TESTIMONIO
-                        $datosCorreo->idTipoFooter = $paraFooter->idTipoFooter;
-                        $datosCorreo->epigrafe = $paraFooter->epigrafe;
-                        $datosCorreo->titulo = $paraFooter->titulo;
-                        $datosCorreo->imagenTestimonio = $paraFooter->imagenTestimonio;
-                        $datosCorreo->textoResumen = $paraFooter->textoResumen;
-                        $datosCorreo->linkVideo = $paraFooter->linkVideo;
-                    } else { // si es NOTICIA
-                        $datosCorreo->idTipoFooter = $paraFooter->idTipoFooter;
-                        $datosCorreo->titulo = $paraFooter->titulo;
-                        $datosCorreo->imagenNoticia = $paraFooter->imagenNoticia;
-                        $datosCorreo->textoResumen = $paraFooter->textoResumen;
-                    }
-
-                    Mail::to($usuarioEncontrado->correo)->send(new BienvenidoEmail($datosCorreo)); // datosCorreo a $data en el mail
-
-                    // registrando log mail enviado
-                    $nuevoLog = new LogCorreoEnviado();
-                    $nuevoLog->idUsuario = $usuarioEncontrado->idUsuario;
-                    $nuevoLog->idConcepto = 2;
-                    $nuevoLog->save();
-
-                    return redirect('notificacion/cuentaActivadaCorrectamente');
-                }
-            }
-        } catch (ModelNotFoundException $e) {
-            return redirect('notificacion/cuentaNoEncontrada');
-        } catch (QueryException $e) {
-            // TODO: catch a una tabla para alertar a soporte en caso de error masivo
-            return redirect('notificacion/errorInterno');
-        } catch (DecryptException $e) {
-            // TODO: catch a una tabla para alertar a soporte en caso de error masivo
-            return redirect('notificacion/errorInterno');
-        }
-    }
 
     public function cuentaYaActivada() {
     	return view ('notificaciones.cuentapreviamenteactivada');
@@ -173,5 +105,28 @@ class ActivarCuentaController extends Controller
 
     public function errorInterno() {
         return view ('notificaciones.errorinterno');
+    }
+
+
+    public function olvidoClave(Request $request)
+    {
+    	try {
+	    	if ($request) {
+	    		if (isset($request->t)) {
+                    $usuarioEncontrado = Usuario::where('tokenCorto', '=', $request->t)->firstOrFail();
+	    			if ($usuarioEncontrado) {
+                        return view('mails2/reestablecer')->with('usuario',$usuarioEncontrado);
+	    			}
+	    		}
+	    	}
+    	} catch (ModelNotFoundException $e) {
+    		return redirect('notificaciones/cuentaNoEncontrada');
+    	} catch (QueryException $e) {
+    		// TODO: catch a una tabla para alertar a soporte en caso de error masivo
+    		return redirect('notificacion/errorInterno');
+    	} catch (DecryptException $e) {
+    		// TODO: catch a una tabla para alertar a soporte en caso de error masivo
+    		return redirect('notificacion/errorInterno');
+    	}
     }
 }

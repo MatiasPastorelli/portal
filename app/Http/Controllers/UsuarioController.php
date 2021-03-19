@@ -13,6 +13,7 @@ use App\Http\Requests\validarLoginRequest;
 use App\Usuario;
 use Mail;
 use App\Mail\ActivarCuentaEmail;
+use App\Mail\OlvidoClaveEmail;
 use Session;
 use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
 use App\Actions\VerificarRutAction;
@@ -97,7 +98,43 @@ class UsuarioController extends Controller
         //
     }
 
+    public function reestablecer(Request $request)
+    {
+        $rules = [
+            'password' =>
+                ['required',
+                'min:6',
+                'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X]).*$/'],
+            'password2' =>
+                ['required',
+                'min:6',
+                'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X]).*$/']];
 
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails())
+        {
+            $errors = $validator->errors();
+            //return $errors;
+            return back()->with('errors', $errors);
+        }
+
+            if ($request->password != null || $request->password2 != null) {
+	    		if ($request->password == $request->password2 ) {
+
+                    $usuarioEncontrado = Usuario::where('tokenCorto', '=', $request->t)
+                    ->update(['passwordUsuario' => $request->password2]);
+
+                    toastr()->success('Su contraseña se reestablecio correctamente');
+	    			return redirect('/login');
+	    		}else
+                {
+                    toastr()->error('La password tiene que ser igual');
+	    			return back();
+                }
+	    	}
+
+    }
     // *** METODO DE REGISTRO Y LOGIN DE USUARIO ***
     public function registrarUsuario()
     {
@@ -107,7 +144,7 @@ class UsuarioController extends Controller
 
     public function storeRegistrarUsuario(Request $request)
     {
-        
+
         $rules = [
             'rut' => 'required',
             'nombre' => 'required',
@@ -143,14 +180,14 @@ class UsuarioController extends Controller
             'rutUsuario' => $request->rut,
             'emailUsuario' => $request->email,
             'passwordUsuario' => $request->password,
-            'aceptaTerminos' => 1, 
+            'aceptaTerminos' => 1,
             'tokenCorto' => uniqid(),
             'cuentaActivada' => 0,
         ]);
 
         $usuario->save();
 
-        
+
         $datosCorreo = new \stdClass();
         $datosCorreo->token = $usuario->tokenCorto;
         $datosCorreo->sender = 'touchouse';
@@ -163,7 +200,7 @@ class UsuarioController extends Controller
         Mail::to($request->email)
                             ->bcc('matias@informatica.isbast.com')
                             ->send(new ActivarCuentaEmail($datosCorreo));
-        
+
         toastr()->success('Active su cuenta mediante el correo enviado', "Se ha enviado un correo electronico a su email para activar su cuenta", ['positionClass' => 'toast-bottom-right']);
         //$this->variablesLoginASession($usuario);
         return redirect('/login');
@@ -186,7 +223,7 @@ class UsuarioController extends Controller
             {
                 toastr()->error('Su cuenta aun no a sido activada');
                 return back();
-            }    
+            }
 
 
             $this->variablesLoginASession($usuario);
@@ -197,6 +234,55 @@ class UsuarioController extends Controller
             return back();
         } catch (Exception $e) {
             return back();
+        }
+    }
+
+    public function olvidoClave() {
+
+        return view('presentacion.olvidoClave');
+    }
+
+    public function enviarLink(Request $request) { // POST
+
+        try {
+            $rules = ['email' => 'required'];
+
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails())
+            {
+                return back()->with('errors', $errors);
+            }
+
+            $usuarioEncontrado = Usuario::where('emailUsuario', '=', $request->email)->firstOrFail();
+
+            $datosCorreo = new \stdClass();
+            $datosCorreo->token = $usuarioEncontrado->tokenCorto;
+            $datosCorreo->sender = 'touchouse';
+            $datosCorreo->receiver = $usuarioEncontrado->nombreUsuario;
+            $datosCorreo->rut = $usuarioEncontrado->rutUsuario;
+            $datosCorreo->correo = $usuarioEncontrado->emailUsuario;
+            $datosCorreo->contrasena = $usuarioEncontrado->passwordUsuario;
+            $datosCorreo->idTipoFooter = 1;
+         // $datosCorreo->titulo = $paraFooter->titulo;
+          //$datosCorreo->imagenNoticia = $paraFooter->imagenNoticia;
+          //$datosCorreo->textoResumen = $paraFooter->textoResumen;
+
+            Mail::to($request->email)->send(new OlvidoClaveEmail($datosCorreo));
+
+
+            toastr()->success('Se ha enviado un correo con los datos de acceso');
+            return redirect('/login');
+
+        } catch (ModelNotFoundException $e) {
+            toastr()->warning('No se encontro el correo dentro de los registros de isbast. Debe ingresar el correo con el cual se registró.');
+            return redirect('/olvidoClave');
+        } catch (QueryException $e) {
+            // error conexion a BBDD
+            toastr()->warning('Se ha producido un error interno. Favor intente nuevamente');
+            return redirect('/olvidoClave');
+        } catch (\Exception $e) {
+            toastr()->warning('Se ha producido un error. Favor intente nuevamente. ' . $e->getMessage());
+            return redirect('/olvidoClave');
         }
     }
 

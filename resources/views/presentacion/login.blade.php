@@ -26,7 +26,7 @@
                         </div>
                         <div class="form-group">
                            <label>Password <span class="text-danger">*</span></label>
-                           <input type="password" class="form-control" required placeholder="Password" id="password" name="password">
+                           <input type="password" class="form-control" placeholder="Password" id="password" name="password">
                         </div>
                         <div class="form-group">
                            <div class="custom-control custom-checkbox">
@@ -37,16 +37,10 @@
                         <button type="submit" class="btn btn-success btn-block">Ingresar</button>
                      </form>
                      <div class="mt-4 text-center">
-                        ¿No tienes cuenta? <a href="{{ url('/registrar') }}">Regístrate</a>
+                        ¿No tienes cuenta? <a href="{{ asset('/registrar') }}">Regístrate</a>
                      </div>
-                   <!--  <div class="mt-4 text-center login-with-social">
-
-                        <button type="button" class="btn btn-facebook btn-block"><i class="mdi mdi-facebook"></i> Login With Facebook</button>
-                        <button type="button" class="btn btn-twitter btn-block"><i class="mdi mdi-twitter"></i> Login With Twitter</button>
-                        <button type="button" class="btn btn-google btn-block"><i class="mdi mdi-google-plus"></i> Login With Google</button>
-                     </div>-->
                      <div class="mt-4 text-center">
-                        <a href="forget.html">Olvidaste tu password?</a>
+                        <a href="{{ asset('/olvidoClave') }}">Olvidaste tu password?</a>
                      </div>
                   </div>
                </div>

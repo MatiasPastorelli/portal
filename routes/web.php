@@ -40,3 +40,9 @@ Route::get('notificacion/cuentaYaActivada', 'ActivarCuentaController@cuentaYaAct
 Route::get('notificacion/cuentaActivadaCorrectamente', 'ActivarCuentaController@cuentaActivadaCorrectamente');
 Route::get('notificacion/cuentaNoEncontrada', 'ActivarCuentaController@cuentaNoEncontrada');
 Route::get('notificacion/errorInterno', 'ActivarCuentaController@errorInterno');
+
+
+//propiedades
+route::get('/propiedad','PropiedadController@index');
+route::get('/propiedadCreate','PropiedadController@create');
+route::get('/propiedadStore','PropiedadController@store');

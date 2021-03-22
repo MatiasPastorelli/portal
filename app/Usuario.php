@@ -20,7 +20,7 @@ class Usuario extends Model
     	'tokenCorto',
     	//'tokenLargo',
     	//'telefono',
-    	//'idTipoUsuario',
+    	'idTipoUsuario',
     	'aceptaTerminos',
         'passwordUsuario',
     	'cuentaActivada'

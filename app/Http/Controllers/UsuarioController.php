@@ -300,9 +300,9 @@ class UsuarioController extends Controller
 
         Session::put('idUsuario', $usuario->idUsuario);
         //Session::put('idTipoUsuario', $usuario->idTipoUsuario);
-        Session::put('emailUsuario', $usuario->email);
-        Session::put('nombreUsuario', $usuario->nombre);
-        Session::put('apellidoUsuario', $usuario->apellido);
+        Session::put('emailUsuario', $usuario->emailUsuario);
+        Session::put('nombreUsuario', $usuario->nombreUsuario);
+        Session::put('apellidoUsuario', $usuario->apellidoUsuario);
 
         return;
     }

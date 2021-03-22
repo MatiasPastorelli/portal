@@ -20,15 +20,15 @@
                      <a class="dropdown-item" href="blog.html">Blog</a>
                      <a class="dropdown-item" href="blog-single.html">Blog Single</a>
                   </div>
-               </li>
+                </li>
                @if (Session::has('idUsuario'))
                   <li class="nav-item dropdown">
                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                     {{ Session::get('nombre') }}
+                     {{ Session::get('nombreUsuario') }}
                      </a>
                      <div class="dropdown-menu" aria-labelledby="navbarDropdownPortfolio">
-                        <a class="dropdown-item" href="user-profile.html">Mis cotizaciones</a>
+                        <a class="dropdown-item" href="user-profile.html">Propiedades</a>
                         <a class="dropdown-item" href="social-profiles.html">Historias</a>
                         <a class="dropdown-item" href="my-properties.html">Planes para profesionales</a>
                         <a class="dropdown-item" href="{{ asset('/cerrarSesion') }}">Salir</a>
@@ -48,6 +48,18 @@
                   </ul>
                </div>
             @endif
+                <div class="my-2 my-lg-0">
+                  <ul class="list-inline main-nav-right">
+                     <li class="list-inline-item">
+                        @if (Session::has('idUsuario'))
+                        <a class="btn btn-success btn-sm" href="/propiedadCreate?p=1">Publica tu Propiedad</a>
+                        @endif
+                        @if (!Session::has('idUsuario'))
+                        <a class="btn btn-success btn-sm" href="{{ asset('/login') }}">Publica tu Propiedad</a>
+                        @endif
+                     </li>
+                  </ul>
+                </div>
          </div>
       </div>
    </nav>

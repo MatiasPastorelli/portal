@@ -32,12 +32,14 @@ class PropiedadController extends Controller
     	}
 
         if ($request->p == 2) {// paso 2 tipo comercial
+
+            //dd($request->categoria);
             $tiposComerciales = TipoComercial::orderby('nombreTipoComercial')->get();
 			return view ('propiedad.createP2', compact('request', 'tiposComerciales'));
     	}
 
         if ($request->p == 3) {// paso 3 confirmar categoria
-
+            //dd($request->categoria);
 			return view ('propiedad.createP3', compact('request'));
     	}
     }

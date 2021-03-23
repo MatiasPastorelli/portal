@@ -24,9 +24,12 @@
 						<h5 class="subtitulo-isbast text-center">Elige el inmueble que quieres publicar</h5>
 					</div>
 
+                    <input class="form-control" type="hidden" name="idPropiedad" value="{{ $request->idCategoria }}">
+
+
 					<div class="card-body m-3">
 						@foreach ($tiposComerciales as $tipo)
-							<a class="btn btn-outline-success btn-block" href="/propiedadCreate?categoria={{ $request->idCategoria }}&tipoComercial={{$tipo->idTipoComercial}}&p=3">{{ $tipo->nombreTipoComercial }}</a>
+							<a class="btn btn-outline-success btn-block" href="/propiedadCreate?categoria={{ $request->categoria }}&tipoComercial={{$tipo->idTipoComercial}}&p=3">{{ $tipo->nombreTipoComercial }}</a>
 						@endforeach
 					</div>
 				</div>

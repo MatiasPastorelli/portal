@@ -15,6 +15,7 @@
       <link href="{{ asset('css/select2/css/select2-bootstrap.css') }}" />
       <link href="{{ asset('css/select2/css/select2.min.css') }}" rel="stylesheet" />
       <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+      @toastr_css
       @yield('css')
    </head>
    <body>
@@ -30,7 +31,9 @@
       <script src="{{ asset('js/contact_me.js') }}"></script>
       <script src="{{ asset('js/select2.min.js') }}"></script>
       <script src="{{ asset('js/custom.js') }}"></script>
+      @jquery
+      @toastr_js
+      @toastr_render
       @yield('scripts')
    </body>
-   @toastr_css
 </html>

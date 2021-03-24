@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Categoria;
 use App\TipoComercial;
+use App\Servicio;
 
 class PropiedadController extends Controller
 {
@@ -40,7 +41,8 @@ class PropiedadController extends Controller
 
         if ($request->p == 3) {// paso 3 confirmar categoria
             //dd($request->categoria);
-			return view ('propiedad.createP3', compact('request'));
+            $servicios = Servicio::orderby('nombreServicio')->get();
+			return view ('propiedad.createP3', compact('request','servicios'));
     	}
     }
 

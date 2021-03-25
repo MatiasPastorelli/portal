@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 use App\Categoria;
 use App\TipoComercial;
 use App\Servicio;
+use App\Ambiente;
+use App\ComodidadEquipamiento;
+use App\EspacioComun;
+use App\Seguridad;
+
 
 class PropiedadController extends Controller
 {
@@ -35,14 +40,19 @@ class PropiedadController extends Controller
         if ($request->p == 2) {// paso 2 tipo comercial
 
             //dd($request->categoria);
-            $tiposComerciales = TipoComercial::orderby('nombreTipoComercial')->get();
-			return view ('propiedad.createP2', compact('request', 'tiposComerciales'));
+            $tiposComerciales  =  TipoComercial::orderby('nombreTipoComercial')->get();
+			return view ('propiedad.createP2', compact('request'))->with($data);
     	}
 
         if ($request->p == 3) {// paso 3 confirmar categoria
             //dd($request->categoria);
-            $servicios = Servicio::orderby('nombreServicio')->get();
-			return view ('propiedad.createP3', compact('request','servicios'));
+            $servicios = Servicio::get();
+            $comodidades = ComodidadEquipamiento::get();
+            $ambientes = Ambiente::get();
+            $espaciosComunes = EspacioComun::get();
+            $seguridades = Seguridad::get();
+			return view ('propiedad.createP3', compact('request','servicios','comodidades'
+            ,'ambientes','espaciosComunes','seguridades'));
     	}
     }
 

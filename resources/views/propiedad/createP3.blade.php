@@ -192,6 +192,60 @@
                            <input type="text" class="form-control" >
                         </div>
                       </div>
+                      <br>
+                      <div class="row">
+                        <div class="form-group col-md-6">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                <label class="form-check-label" for="inlineRadio1">Baño de visitas</label>
+                              </div>
+                         </div>
+                        <div class="form-group col-md-6">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                <label class="form-check-label" for="inlineRadio1">Dormitorio y baño de visitas</label>
+                              </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="form-group col-md-6">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                <label class="form-check-label" for="inlineRadio1">Jardin</label>
+                              </div>
+                         </div>
+                        <div class="form-group col-md-6">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                <label class="form-check-label" for="inlineRadio1">Parrilla</label>
+                              </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="form-group col-md-6">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                <label class="form-check-label" for="inlineRadio1">Piscina</label>
+                              </div>
+                         </div>
+                        <div class="form-group col-md-6">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                <label class="form-check-label" for="inlineRadio1">Terraza</label>
+                              </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="form-group col-md-6">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                <label class="form-check-label" for="inlineRadio1">Uso comercial</label>
+                              </div>
+                         </div>
+                      </div>
+
                       <div class="card property-features-add padding-card">
                         <div class="card-body">
                            <h6 class="card-title mb-4">Otras características</h6>
@@ -243,11 +297,11 @@
                                             <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                                                 <div class="card-body">
                                                     <div class="row">
-                                                        @foreach ($servicios as $servicio )
+                                                        @foreach ($comodidades as $comodidad )
                                                           <div class="col-md-4">
                                                               <div class="custom-control custom-checkbox">
-                                                              <input type="checkbox" class="custom-control-input" id="{{$servicio->idServicio}}">
-                                                              <label class="custom-control-label" for="{{$servicio->idServicio}}" value="{{$servicio->idServicio}}">{{$servicio->nombreServicio}}</label>
+                                                              <input type="checkbox" class="custom-control-input" id="{{$comodidad->idComodidadEquipamiento}}">
+                                                              <label class="custom-control-label" for="{{$comodidad->idComodidadEquipamiento}}" value="{{$comodidad->idComodidadEquipamiento}}">{{$comodidad->nombreComodidadEquipamiento}}</label>
                                                               </div>
                                                           </div>
                                                         @endforeach
@@ -275,11 +329,11 @@
                                             <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                                                 <div class="card-body">
                                                     <div class="row">
-                                                        @foreach ($servicios as $servicio )
+                                                        @foreach ($ambientes as $ambiente )
                                                           <div class="col-md-4">
                                                               <div class="custom-control custom-checkbox">
-                                                              <input type="checkbox" class="custom-control-input" id="{{$servicio->idServicio}}">
-                                                              <label class="custom-control-label" for="{{$servicio->idServicio}}" value="{{$servicio->idServicio}}">{{$servicio->nombreServicio}}</label>
+                                                              <input type="checkbox" class="custom-control-input" id="{{$ambiente->idAmbiente}}">
+                                                              <label class="custom-control-label" for="{{$ambiente->idAmbiente}}" value="{{$ambiente->idAmbiente}}">{{$ambiente->nombreAmbiente}}</label>
                                                               </div>
                                                           </div>
                                                         @endforeach
@@ -292,7 +346,70 @@
                             </div>
                             <!--FAQ Section starts-->
                            </div>
-
+                           <!--Espacios comunes-->
+                           <div class="col-lg-12">
+                            <!--Listing Details starts-->
+                            <div class="list-details-wrap">
+                                <div id="buy" class="list-details-section">
+                                    <div id="accordion4" role="tablist">
+                                        <div class="card">
+                                            <div class="card-header" role="tab" id="headingFour">
+                                                <a role="button" data-toggle="collapse" data-parent="#accordion4" href="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                                                    Espacios comunes
+                                                </a>
+                                            </div>
+                                            <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        @foreach ($espaciosComunes as $espacioComun )
+                                                          <div class="col-md-4">
+                                                              <div class="custom-control custom-checkbox">
+                                                              <input type="checkbox" class="custom-control-input" id="{{$espacioComun->idEspacioComun}}">
+                                                              <label class="custom-control-label" for="{{$espacioComun->idEspacioComun}}" value="{{$espacioComun->idEspacioComun}}">{{$espacioComun->nombreEspacioComun}}</label>
+                                                              </div>
+                                                          </div>
+                                                        @endforeach
+                                                     </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--FAQ Section starts-->
+                           </div>
+                           <!--Seguridad-->
+                           <div class="col-lg-12">
+                            <!--Listing Details starts-->
+                            <div class="list-details-wrap">
+                                <div id="buy" class="list-details-section">
+                                    <div id="accordion5" role="tablist">
+                                        <div class="card">
+                                            <div class="card-header" role="tab" id="headingFive">
+                                                <a role="button" data-toggle="collapse" data-parent="#accordion5" href="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+                                                    Seguridad
+                                                </a>
+                                            </div>
+                                            <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        @foreach ($seguridades as $seguridad )
+                                                          <div class="col-md-4">
+                                                              <div class="custom-control custom-checkbox">
+                                                              <input type="checkbox" class="custom-control-input" id="{{$seguridad->idSeguridad}}">
+                                                              <label class="custom-control-label" for="{{$seguridad->idSeguridad}}" value="{{$seguridad->idSeguridad}}">{{$seguridad->nombreSeguridad}}</label>
+                                                              </div>
+                                                          </div>
+                                                        @endforeach
+                                                     </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--FAQ Section starts-->
+                           </div>
                         </div>
                      </div>
                   </div>

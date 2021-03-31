@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Categoria;
 use App\TipoComercial;
-use App\Servicio;
-use App\Ambiente;
-use App\ComodidadEquipamiento;
-use App\EspacioComun;
-use App\Seguridad;
+use App\CaracteristicaCategoria;
+use App\Caracteristica;
+use App\TipoCaracteristica;
 
 
 class PropiedadController extends Controller
@@ -46,11 +44,38 @@ class PropiedadController extends Controller
 
         if ($request->p == 3) {// paso 3 confirmar categoria
             //dd($request->categoria);
-            $servicios = Servicio::get();
-            $comodidades = ComodidadEquipamiento::get();
-            $ambientes = Ambiente::get();
-            $espaciosComunes = EspacioComun::get();
-            $seguridades = Seguridad::get();
+            $categoria = decrypt($request->categoria);
+
+            $servicios = CaracteristicaCategoria::Join('caracteristicas','caracteristicas_categorias.idCaracteristica','=','caracteristicas.idCaracteristica')
+            ->select('caracteristicas.nombreCaracteristica','caracteristicas.idCaracteristica')
+            ->where('caracteristicas_categorias.idCategoria',$categoria)
+            ->where('caracteristicas_categorias.idTipoComercial',$request->tipoComercial)
+            ->where('caracteristicas_categorias.idTipoCaracteristica',1)->get();
+
+            $comodidades = CaracteristicaCategoria::leftJoin('caracteristicas','caracteristicas_categorias.idCaracteristica','=','caracteristicas.idCaracteristica')
+            ->select('caracteristicas.nombreCaracteristica','caracteristicas.idCaracteristica')
+            ->where('caracteristicas_categorias.idCategoria',$categoria)
+            ->where('caracteristicas_categorias.idTipoComercial',$request->tipoComercial)
+            ->where('caracteristicas_categorias.idTipoCaracteristica',2)->get();
+
+            $seguridades = CaracteristicaCategoria::leftJoin('caracteristicas','caracteristicas_categorias.idCaracteristica','=','caracteristicas.idCaracteristica')
+            ->select('caracteristicas.nombreCaracteristica','caracteristicas.idCaracteristica')
+            ->where('caracteristicas_categorias.idCategoria',$categoria)
+            ->where('caracteristicas_categorias.idTipoComercial',$request->tipoComercial)
+            ->where('caracteristicas_categorias.idTipoCaracteristica',3)->get();
+
+            $ambientes = CaracteristicaCategoria::leftJoin('caracteristicas','caracteristicas_categorias.idCaracteristica','=','caracteristicas.idCaracteristica')
+            ->select('caracteristicas.nombreCaracteristica','caracteristicas.idCaracteristica')
+            ->where('caracteristicas_categorias.idCategoria',$categoria)
+            ->where('caracteristicas_categorias.idTipoComercial',$request->tipoComercial)
+            ->where('caracteristicas_categorias.idTipoCaracteristica',4)->get();
+
+            $espaciosComunes = CaracteristicaCategoria::leftJoin('caracteristicas','caracteristicas_categorias.idCaracteristica','=','caracteristicas.idCaracteristica')
+            ->select('caracteristicas.nombreCaracteristica','caracteristicas.idCaracteristica')
+            ->where('caracteristicas_categorias.idCategoria',$categoria)
+            ->where('caracteristicas_categorias.idTipoComercial',$request->tipoComercial)
+            ->where('caracteristicas_categorias.idTipoCaracteristica',5)->get();
+
 			return view ('propiedad.createP3', compact('request','servicios','comodidades'
             ,'ambientes','espaciosComunes','seguridades'));
     	}

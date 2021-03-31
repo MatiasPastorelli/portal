@@ -148,8 +148,8 @@
                                                 @foreach ($servicios as $servicio )
                                                 <div class="col-md-4">
                                                     <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="{{$servicio->idServicio}}">
-                                                    <label class="custom-control-label" for="{{$servicio->idServicio}}" value="{{$servicio->idServicio}}">{{$servicio->nombreServicio}}</label>
+                                                    <input type="checkbox" class="custom-control-input" id="{{$servicio->idCaracteristica}}">
+                                                    <label class="custom-control-label" for="{{$servicio->idCaracteristica}}" value="{{$servicio->idCaracteristica}}">{{$servicio->nombreCaracteristica}}</label>
                                                     </div>
                                                 </div>
                                                 @endforeach
@@ -340,3 +340,4 @@
       </div>
     </div>
 </form>
+

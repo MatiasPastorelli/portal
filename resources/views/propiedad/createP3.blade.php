@@ -95,8 +95,48 @@
                  <h5 class="subtitulo-isbast text-center">Formulario de registro</h5>
               </div>
               <!-- search input box -->
-
-
+                @if (Crypt::decrypt($request->categoria) == 2)
+                    @include('propiedad.forms.departamento.venta')
+                @endif
+                @if (Crypt::decrypt($request->categoria) == 3)
+                    @include('propiedad.forms.casa.venta')
+                @endif
+                @if (Crypt::decrypt($request->categoria) == 4)
+                    @include('propiedad.forms.oficina.venta')
+                @endif
+                @if (Crypt::decrypt($request->categoria) == 5)
+                    @include('propiedad.forms.terreno.venta')
+                @endif
+                @if (Crypt::decrypt($request->categoria) == 6)
+                    @include('propiedad.forms.locales.venta')
+                @endif
+                @if (Crypt::decrypt($request->categoria) == 7)
+                    @include('propiedad.forms.parcelas.venta')
+                @endif
+                @if (Crypt::decrypt($request->categoria) == 8)
+                    @include('propiedad.forms.bodegas.venta')
+                @endif
+                @if (Crypt::decrypt($request->categoria) == 9)
+                    @include('propiedad.forms.industriales.venta')
+                @endif
+                @if (Crypt::decrypt($request->categoria) == 10)
+                    @include('propiedad.forms.agricolas.venta')
+                @endif
+                @if (Crypt::decrypt($request->categoria) == 11)
+                    @include('propiedad.forms.estacionamiento.venta')
+                @endif
+                @if (Crypt::decrypt($request->categoria) == 12)
+                    @include('propiedad.forms.loteCemento.venta')
+                @endif
+                @if (Crypt::decrypt($request->categoria) == 13)
+                    @include('propiedad.forms.otroInmueble.venta')
+                @endif
+                @if (Crypt::decrypt($request->categoria) == 14)
+                    @include('propiedad.forms.loteos.venta')
+                @endif
+                @if (Crypt::decrypt($request->categoria) == 15)
+                    @include('propiedad.forms.sitios.venta')
+                @endif
            </div>
         </div>
      </div>

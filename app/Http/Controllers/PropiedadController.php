@@ -8,6 +8,9 @@ use App\TipoComercial;
 use App\CaracteristicaCategoria;
 use App\Caracteristica;
 use App\TipoCaracteristica;
+use App\Propiedad;
+use Session;
+use Validator;
 
 
 class PropiedadController extends Controller
@@ -89,7 +92,32 @@ class PropiedadController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       //dd($request->dormitorioBañoServicio);
+
+        $rules = [
+            'superficieTotal' => 'required',
+            'superficieUtil' => 'required',
+            'dormitorios' => 'required',
+            'baños' => 'required',
+            'estacionamientos' => 'required'];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails())
+        {
+            $errors = $validator->errors();
+            //return $errors;
+            return back()->with('errors', $errors);
+        }
+
+
+        $nuevaPropiedad = new Propiedad();
+        $nuevaPropiedad->fill($request->all());
+        $nuevaPropiedad->creador = Session::get('nombreUsuario') . ' ' . Session::get('apellidoUsuario');
+        $nuevaPropiedad->save();
+
+        toastr()->success('PropiedadCreada');
+        return back();
     }
 
     /**

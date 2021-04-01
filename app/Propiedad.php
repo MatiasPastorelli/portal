@@ -11,12 +11,31 @@ class Propiedad extends Model
     protected $primaryKey = 'idPropiedad';
 
     protected $fillable = [
-    	'nombrepropiedad',
-    	'direccionPropiedad',
-    	'numeroPropiedad',
-    	'blockPropiedad',
-    	'urlVideoPropiedad',
-    	'idCategoria',
-    	'idTipo_comercial'
+    	'direccion',
+    	'latitud',
+    	'longitud',
+    	'superficieTotal',
+    	'superficieUtil',
+    	'created_at',
+    	'updated_at',
+        'urlVideo',
+        'dormitorios',
+        'baños',
+        'bodegas',
+        'estacionamiento',
+        'cantidadPesos',
+        'departamentosPisos',
+        'numeroPisoUnidad',
+        'bañoVisitas',
+        'dormitorioBañoServicio',
+        'jardin',
+        'parrilla',
+        'piscina',
+        'terraza',
+        'usoComercial',
+        'orientacion',
+        'antiguedad',
+        'datosOpcionales',
+        'creador'
     ];
 }

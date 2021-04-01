@@ -43,6 +43,6 @@ Route::get('notificacion/errorInterno', 'ActivarCuentaController@errorInterno');
 
 
 //propiedades
-route::get('/propiedad','PropiedadController@index');
-route::get('/propiedadCreate','PropiedadController@create');
-route::get('/propiedadStore','PropiedadController@store');
+Route::get('/propiedad','PropiedadController@index');
+Route::get('/propiedadCreate','PropiedadController@create');
+Route::post('/propiedadStore','PropiedadController@store');

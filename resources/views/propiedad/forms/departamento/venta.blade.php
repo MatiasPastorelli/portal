@@ -1,63 +1,58 @@
-<form>
-    <input type="hidden" id="inputAddr" name="inputAddr" class="search_addr" size="45">
-    <input type="hidden" id="inputLatitude"  name="inputLatitude" class="search_latitude" size="30">
-    <input type="hidden" id="inputLongitude" name="inputLongitude" class="search_longitude" size="30">
+<form action="{{ asset('/propiedadStore') }}" method="post">
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    <input type="hidden" id="inputAddr" name="direccion" class="search_addr" size="45">
+    <input type="hidden" id="inputLatitude"  name="latitud" class="search_latitude" size="30">
+    <input type="hidden" id="inputLongitude" name="longitud" class="search_longitude" size="30">
     <div>
       <div class="card-body m-3">
             <h4>Completa las características del inmueble</h4>
             <p>Tendrás mejor ubicación en los resultados de búsqueda y los interesados tendrán toda la información que necesitan.</p>
             <div class="row">
 
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                     <label>Superficie total (obligatorio)</label>
-                    <input type="text" class="form-control">
+                    <input type="text" name="superficieTotal" class="form-control">
 
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                     <label>Superficie útil (obligatorio) <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" >
+                    <input type="text" name="superficieUtil" class="form-control" >
                 </div>
             </div>
             <div class="row">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                     <label>Dormitorios (obligatorio)<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" >
+                    <input type="text" name="dormitorios" class="form-control" >
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                     <label>Baños (obligatorio)<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" >
-                </div>
-                <div class="form-group col-md-4">
-                    <label>Estacionamientos (obligatorio)<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" placeholder="Si no tiene estacionamientos, indica 0.">
+                    <input type="text" name="baños" class="form-control" >
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-6">
                     <label>Bodegas<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" >
+                    <input type="text" name="bodegas" class="form-control" >
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Estacionamientos (obligatorio)<span class="text-danger">*</span></label>
+                    <input type="text" name="estacionamiento" class="form-control" placeholder="Si no tiene estacionamientos, indica 0.">
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-6">
                     <label>Cantidad de pisos<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" >
+                    <input type="text" name="cantidadPisos" class="form-control" >
                 </div>
                 <div class="form-group col-md-6">
                     <label>Departamentos por piso<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" >
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <label>Numero de piso de la unidad<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" >
+                    <input type="text" name="departamentosPisos" class="form-control" >
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-6">
                     <label>Orientacion<span class="text-danger">*</span></label>
-                    <select class="form-control custom-select">
+                    <select class="form-control custom-select" name="orientacion">
                         <option selected>Elegir</option>
                         <option>NO</option>
                         <option>NP</option>¨
@@ -72,48 +67,54 @@
                 </div>
                 <div class="form-group col-md-6">
                 <label>Antiguedad<span class="text-danger">*</span></label>
-                <input type="text" class="form-control" >
+                <input type="text" name="antiguedad" class="form-control" >
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Numero de piso de la unidad<span class="text-danger">*</span></label>
+                    <input type="text" name="numeroPisoUnidad" class="form-control" >
                 </div>
             </div>
             <br>
             <div class="row">
                 <div class="form-group col-md-6">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                        <label class="form-check-label" for="inlineRadio1">Baño de visitas</label>
+                        <input class="form-check-input" type="checkbox" name="bañoVisitas" id="bañoVisitas" value="1">
+                        <label class="form-check-label" for="bañoVisitas">Baño de visitas</label>
                     </div>
                 </div>
                 <div class="form-group col-md-6">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                        <label class="form-check-label" for="inlineRadio1">Dormitorio y baño de servicio</label>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                        <label class="form-check-label" for="inlineRadio1">Jardin</label>
-                    </div>
-                </div>
-                <div class="form-group col-md-6">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                        <label class="form-check-label" for="inlineRadio1">Parrilla</label>
+                        <input class="form-check-input" type="checkbox" name="dormitorioBañoServicio" id="dormitorioBañoServicio" value="1">
+                        <label class="form-check-label" for="dormitorioBañoServicio">Dormitorio y baño de servicio</label>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-6">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                        <input class="form-check-input" type="checkbox" name="jardin" id="jardin" value="1">
+                        <label class="form-check-label" for="jardin">Jardin</label>
+                    </div>
+                </div>
+                <div class="form-group col-md-6">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="parrilla" id="parrilla" value="1">
+                        <label class="form-check-label" for="parrilla">Parrilla</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="piscina" id="piscina" value="1">
                         <label class="form-check-label" for="inlineRadio1">Piscina</label>
                     </div>
                 </div>
                 <div class="form-group col-md-6">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                        <input class="form-check-input" type="checkbox" name="terraza" id="terraza" value="1">
                         <label class="form-check-label" for="inlineRadio1">Terraza</label>
                     </div>
                 </div>
@@ -121,7 +122,7 @@
             <div class="row">
                 <div class="form-group col-md-6">
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                        <input class="form-check-input" type="checkbox" name="usoComercial" id="usoComercial" value="1">
                         <label class="form-check-label" for="inlineRadio1">Uso comercial</label>
                     </div>
                 </div>
@@ -180,8 +181,8 @@
                                                 @foreach ($comodidades as $comodidad )
                                                 <div class="col-md-4">
                                                     <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="{{$comodidad->idComodidadEquipamiento}}">
-                                                    <label class="custom-control-label" for="{{$comodidad->idComodidadEquipamiento}}" value="{{$comodidad->idComodidadEquipamiento}}">{{$comodidad->nombreComodidadEquipamiento}}</label>
+                                                    <input type="checkbox" class="custom-control-input" id="{{$comodidad->idCaracteristica}}">
+                                                    <label class="custom-control-label" for="{{$comodidad->idCaracteristica}}" value="{{$comodidad->idCaracteristica}}">{{$comodidad->nombreCaracteristica}}</label>
                                                     </div>
                                                 </div>
                                                 @endforeach
@@ -212,8 +213,8 @@
                                                 @foreach ($ambientes as $ambiente )
                                                 <div class="col-md-4">
                                                     <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="{{$ambiente->idAmbiente}}">
-                                                    <label class="custom-control-label" for="{{$ambiente->idAmbiente}}" value="{{$ambiente->idAmbiente}}">{{$ambiente->nombreAmbiente}}</label>
+                                                    <input type="checkbox" class="custom-control-input" id="{{$ambiente->idCaracteristica}}">
+                                                    <label class="custom-control-label" for="{{$ambiente->idCaracteristica}}" value="{{$ambiente->idCaracteristica}}">{{$ambiente->nombreCaracteristica}}</label>
                                                     </div>
                                                 </div>
                                                 @endforeach
@@ -244,8 +245,8 @@
                                                 @foreach ($espaciosComunes as $espacioComun )
                                                 <div class="col-md-4">
                                                     <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="{{$espacioComun->idEspacioComun}}">
-                                                    <label class="custom-control-label" for="{{$espacioComun->idEspacioComun}}" value="{{$espacioComun->idEspacioComun}}">{{$espacioComun->nombreEspacioComun}}</label>
+                                                    <input type="checkbox" class="custom-control-input" id="{{$espacioComun->idCaracteristica}}">
+                                                    <label class="custom-control-label" for="{{$espacioComun->idCaracteristica}}" value="{{$espacioComun->idCaracteristica}}">{{$espacioComun->nombreCaracteristica}}</label>
                                                     </div>
                                                 </div>
                                                 @endforeach
@@ -276,8 +277,8 @@
                                                 @foreach ($seguridades as $seguridad )
                                                 <div class="col-md-4">
                                                     <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="{{$seguridad->idSeguridad}}">
-                                                    <label class="custom-control-label" for="{{$seguridad->idSeguridad}}" value="{{$seguridad->idSeguridad}}">{{$seguridad->nombreSeguridad}}</label>
+                                                    <input type="checkbox" class="custom-control-input" id="{{$seguridad->idCaracteristica}}">
+                                                    <label class="custom-control-label" for="{{$seguridad->idCaracteristica}}" value="{{$seguridad->idCaracteristica}}">{{$seguridad->nombreCaracteristica}}</label>
                                                     </div>
                                                 </div>
                                                 @endforeach
@@ -305,8 +306,8 @@
                                 <h6>No incluyas datos de contacto como teléfono, e-mail, links o redes sociales.</h6>
 
                                 <div class="form-group">
-                                    <label for="datosOpcionales" name="datosOpcionales"></label>
-                                    <textarea class="form-control" rows="3" placeholder="¿Te falto contar algo? Agregalo como descripcion."></textarea>
+                                    <label for="datosOpcionales" ></label>
+                                    <textarea class="form-control" rows="3" name="datosOpcionales" placeholder="¿Te falto contar algo? Agregalo como descripcion."></textarea>
                                 </div>
 
                             </div>
@@ -339,5 +340,18 @@
             <br>
       </div>
     </div>
+
+    <div class="my-2 my-lg-0" style="float: right">
+        <ul class="list-inline main-nav-right" style="align:Center ">
+           <li class="list-inline-item">
+            <a class="btn btn-link btn-sm" href="/">Cancelar</a>
+           </li>
+           <li class="list-inline-item">
+              <button type="submit" class="btn btn-success btn-sm"" >Confirmar</button>
+           </li>
+        </ul>
+     </div>
+     <br>
+
 </form>
 

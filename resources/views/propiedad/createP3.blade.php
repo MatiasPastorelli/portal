@@ -95,46 +95,46 @@
                  <h5 class="subtitulo-isbast text-center">Formulario de registro</h5>
               </div>
               <!-- search input box -->
-                @if (Crypt::decrypt($request->categoria) == 2)
+                @if (Crypt::decrypt($request->categoria) == 2 and $request->tipoComercial == 3)
                     @include('propiedad.forms.departamento.venta')
                 @endif
-                @if (Crypt::decrypt($request->categoria) == 3)
+                @if (Crypt::decrypt($request->categoria) == 3 and $request->tipoComercial == 3)
                     @include('propiedad.forms.casa.venta')
                 @endif
-                @if (Crypt::decrypt($request->categoria) == 4)
+                @if (Crypt::decrypt($request->categoria) == 4 and $request->tipoComercial == 3)
                     @include('propiedad.forms.oficina.venta')
                 @endif
-                @if (Crypt::decrypt($request->categoria) == 5)
+                @if (Crypt::decrypt($request->categoria) == 5 and $request->tipoComercial == 3)
                     @include('propiedad.forms.terreno.venta')
                 @endif
-                @if (Crypt::decrypt($request->categoria) == 6)
+                @if (Crypt::decrypt($request->categoria) == 6 and $request->tipoComercial == 3)
                     @include('propiedad.forms.locales.venta')
                 @endif
-                @if (Crypt::decrypt($request->categoria) == 7)
+                @if (Crypt::decrypt($request->categoria) == 7 and $request->tipoComercial == 3)
                     @include('propiedad.forms.parcelas.venta')
                 @endif
-                @if (Crypt::decrypt($request->categoria) == 8)
+                @if (Crypt::decrypt($request->categoria) == 8 and $request->tipoComercial == 3)
                     @include('propiedad.forms.bodegas.venta')
                 @endif
-                @if (Crypt::decrypt($request->categoria) == 9)
+                @if (Crypt::decrypt($request->categoria) == 9 and $request->tipoComercial == 3)
                     @include('propiedad.forms.industriales.venta')
                 @endif
-                @if (Crypt::decrypt($request->categoria) == 10)
+                @if (Crypt::decrypt($request->categoria) == 10 and $request->tipoComercial == 3)
                     @include('propiedad.forms.agricolas.venta')
                 @endif
-                @if (Crypt::decrypt($request->categoria) == 11)
+                @if (Crypt::decrypt($request->categoria) == 11 and $request->tipoComercial == 3)
                     @include('propiedad.forms.estacionamiento.venta')
                 @endif
-                @if (Crypt::decrypt($request->categoria) == 12)
+                @if (Crypt::decrypt($request->categoria) == 12 and $request->tipoComercial == 3)
                     @include('propiedad.forms.loteCemento.venta')
                 @endif
-                @if (Crypt::decrypt($request->categoria) == 13)
+                @if (Crypt::decrypt($request->categoria) == 13 and $request->tipoComercial == 3)
                     @include('propiedad.forms.otroInmueble.venta')
                 @endif
-                @if (Crypt::decrypt($request->categoria) == 14)
+                @if (Crypt::decrypt($request->categoria) == 14 and $request->tipoComercial == 3)
                     @include('propiedad.forms.loteos.venta')
                 @endif
-                @if (Crypt::decrypt($request->categoria) == 15)
+                @if (Crypt::decrypt($request->categoria) == 15 and $request->tipoComercial == 3)
                     @include('propiedad.forms.sitios.venta')
                 @endif
            </div>
@@ -169,7 +169,7 @@
       }
 
       function confirmarMaps() {
-        if ($('.search_latitude').val() ==  '' && $('.search_longitude').val() == '') {
+        if ($('.search_latitude').val() !=  '' && $('.search_longitude').val() != '') {
             $('#maps').hide();
             $('#formularioRegistro').show();
         } else {

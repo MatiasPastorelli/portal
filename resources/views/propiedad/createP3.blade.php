@@ -17,6 +17,7 @@
 @endsection
 
 @section('content')
+@include('common.errors')
 
 <section class="section-padding">
     <div class="section-title text-center mb-0">

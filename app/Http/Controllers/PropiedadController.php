@@ -93,7 +93,7 @@ class PropiedadController extends Controller
     public function store(Request $request)
     {
        //dd($request->dormitorioBañoServicio);
-
+       dd($request->servicios);
         $rules = [
             'superficieTotal' => 'required',
             'superficieUtil' => 'required',
@@ -110,11 +110,15 @@ class PropiedadController extends Controller
             return back()->with('errors', $errors);
         }
 
-
         $nuevaPropiedad = new Propiedad();
         $nuevaPropiedad->fill($request->all());
         $nuevaPropiedad->creador = Session::get('nombreUsuario') . ' ' . Session::get('apellidoUsuario');
         $nuevaPropiedad->save();
+
+
+        $nuevaPropiedadCaracteristica = new PropiedadCaracteristica();
+        $nuevaPropiedadCaracteristica = 0;
+
 
         toastr()->success('PropiedadCreada');
         return back();

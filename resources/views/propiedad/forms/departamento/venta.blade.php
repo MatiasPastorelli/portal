@@ -149,8 +149,7 @@
                                                 @foreach ($servicios as $servicio )
                                                 <div class="col-md-4">
                                                     <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="{{$servicio->idCaracteristica}}">
-                                                    <label class="custom-control-label" for="{{$servicio->idCaracteristica}}" value="{{$servicio->idCaracteristica}}">{{$servicio->nombreCaracteristica}}</label>
+                                                    <input type="checkbox"  name="servicios[]" value="{{$servicio->idCaracteristica}}">{{$servicio->nombreCaracteristica}}
                                                     </div>
                                                 </div>
                                                 @endforeach
@@ -181,8 +180,7 @@
                                                 @foreach ($comodidades as $comodidad )
                                                 <div class="col-md-4">
                                                     <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="{{$comodidad->idCaracteristica}}">
-                                                    <label class="custom-control-label" for="{{$comodidad->idCaracteristica}}" value="{{$comodidad->idCaracteristica}}">{{$comodidad->nombreCaracteristica}}</label>
+                                                    <input type="checkbox" class="custom-control-input" value="{{$comodidad->idCaracteristica}}" name="comodidades[]">{{$comodidad->nombreCaracteristica}}
                                                     </div>
                                                 </div>
                                                 @endforeach
@@ -213,8 +211,7 @@
                                                 @foreach ($ambientes as $ambiente )
                                                 <div class="col-md-4">
                                                     <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="{{$ambiente->idCaracteristica}}">
-                                                    <label class="custom-control-label" for="{{$ambiente->idCaracteristica}}" value="{{$ambiente->idCaracteristica}}">{{$ambiente->nombreCaracteristica}}</label>
+                                                    <input type="checkbox"  name="ambientes[]" value="{{$ambiente->idCaracteristica}}">{{$ambiente->nombreCaracteristica}}
                                                     </div>
                                                 </div>
                                                 @endforeach
@@ -245,8 +242,7 @@
                                                 @foreach ($espaciosComunes as $espacioComun )
                                                 <div class="col-md-4">
                                                     <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="{{$espacioComun->idCaracteristica}}">
-                                                    <label class="custom-control-label" for="{{$espacioComun->idCaracteristica}}" value="{{$espacioComun->idCaracteristica}}">{{$espacioComun->nombreCaracteristica}}</label>
+                                                    <input type="checkbox"  name="espaciosComunes[]" value="{{$espacioComun->idCaracteristica}}">{{$espacioComun->nombreCaracteristica}}
                                                     </div>
                                                 </div>
                                                 @endforeach
@@ -277,8 +273,7 @@
                                                 @foreach ($seguridades as $seguridad )
                                                 <div class="col-md-4">
                                                     <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="{{$seguridad->idCaracteristica}}">
-                                                    <label class="custom-control-label" for="{{$seguridad->idCaracteristica}}" value="{{$seguridad->idCaracteristica}}">{{$seguridad->nombreCaracteristica}}</label>
+                                                    <input type="checkbox" name="seguridades[]" value="{{$seguridad->idCaracteristica}}">{{$seguridad->nombreCaracteristica}}
                                                     </div>
                                                 </div>
                                                 @endforeach

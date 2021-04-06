@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Caracteristica;
+use App\TipoCaracteristica;
 use Illuminate\Http\Request;
 
-class CategoriaController extends Controller
+class CaracteristicaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +14,12 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        return view('/categoria.index')
+        $caracteristicas = Caracteristica::join('tipos_caracteristicas as tipos','caracteristicas.idTipoCaracteristica','=','tipos.idTipoCaracteristica')
+                                         ->orderby('tipos.nombreTipoCaracteristica')
+                                         ->get();
+
+
+        return view('/caracteristica.index' , compact('caracteristicas'));
     }
 
     /**
@@ -23,7 +29,7 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        //
+        return view('/caracteristica.create');
     }
 
     /**
@@ -79,6 +85,10 @@ class CategoriaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $caracteristica = Caracteristica::where('idCaracteristica',$id);
+        $caracteristica->delete();
+
+        toastr()->success('Caracteristica Eliminada','Exito!',['positionClass' => 'toast-top-right']);
+        return redirect('/caracteristica');
     }
 }

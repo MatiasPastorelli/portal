@@ -37,7 +37,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label>Estacionamientos (obligatorio)<span class="text-danger">*</span></label>
-                    <input type="text" name="estacionamiento" class="form-control" placeholder="Si no tiene estacionamientos, indica 0.">
+                    <input type="text" name="estacionamientos" class="form-control" placeholder="Si no tiene estacionamientos, indica 0.">
                 </div>
             </div>
             <div class="row">
@@ -181,7 +181,7 @@
                                                 @foreach ($comodidades as $comodidad )
                                                 <div class="col-md-4">
                                                     <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" value="{{$comodidad->idCaracteristica}}" name="comodidades[]">{{$comodidad->nombreCaracteristica}}
+                                                    <input type="checkbox"  value="{{$comodidad->idCaracteristica}}" name="comodidades[]">{{$comodidad->nombreCaracteristica}}
                                                     </div>
                                                 </div>
                                                 @endforeach

@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 use App\Categoria;
 use App\TipoComercial;
 use App\CaracteristicaCategoria;
+use App\PropiedadCaracteristica;
 use App\Caracteristica;
 use App\TipoCaracteristica;
 use App\Propiedad;
 use Session;
 use Validator;
+use DB;
 
 
 class PropiedadController extends Controller
@@ -92,8 +94,6 @@ class PropiedadController extends Controller
      */
     public function store(Request $request)
     {
-       //dd($request->dormitorioBañoServicio);
-       dd($request->servicios);
         $rules = [
             'superficieTotal' => 'required',
             'superficieUtil' => 'required',
@@ -110,60 +110,81 @@ class PropiedadController extends Controller
             return back()->with('errors', $errors);
         }
 
-        $nuevaPropiedad = new Propiedad();
-        $nuevaPropiedad->fill($request->all());
-        $nuevaPropiedad->creador = Session::get('nombreUsuario') . ' ' . Session::get('apellidoUsuario');
-        $nuevaPropiedad->save();
+       try {
 
-        foreach ($servicios as  $servicio) {
-            $nuevaPropiedadCaracteristica = new PropiedadCaracteristica();
-            $nuevaPropiedadCaracteristica = $request->categoria;
-            $nuevaPropiedadCaracteristica = $nuevaPropiedad->idPropiedad;
-            $nuevaPropiedadCaracteristica = $servicio;
-            $nuevaPropiedadCaracteristica = 1;
-            $nuevaPropiedadCaracteristica->save();
-        }
+            DB::beginTransaction();
+            $categoria = decrypt($request->categoria);
 
-        foreach ($comodidadesEquipamientos as  $comodidadEquipamiento) {
-            $nuevaPropiedadCaracteristica = new PropiedadCaracteristica();
-            $nuevaPropiedadCaracteristica = $request->categoria;
-            $nuevaPropiedadCaracteristica = $nuevaPropiedad->idPropiedad;
-            $nuevaPropiedadCaracteristica = $comodidadEquipamiento;
-            $nuevaPropiedadCaracteristica = 2;
-            $nuevaPropiedadCaracteristica->save();
-        }
+            $nuevaPropiedad = new Propiedad();
+            $nuevaPropiedad->fill($request->all());
+            $nuevaPropiedad->creador = Session::get('nombreUsuario') . ' ' . Session::get('apellidoUsuario');
+            $nuevaPropiedad->save();
 
-        foreach ($ambientes as  $ambiente) {
-            $nuevaPropiedadCaracteristica = new PropiedadCaracteristica();
-            $nuevaPropiedadCaracteristica = $request->categoria;
-            $nuevaPropiedadCaracteristica = $nuevaPropiedad->idPropiedad;
-            $nuevaPropiedadCaracteristica = $ambiente;
-            $nuevaPropiedadCaracteristica = 4;
-            $nuevaPropiedadCaracteristica->save();
-        }
+            /*foreach para agregar caracteristicas de las propiedades*/
+            if(isset($request->servicios))
+            {
+                foreach ($request->servicios as  $servicio) {
+                    $nuevaPropiedadCaracteristica = new PropiedadCaracteristica();
+                    $nuevaPropiedadCaracteristica->idCategoria = $categoria;
+                    $nuevaPropiedadCaracteristica->idPropiedad = $nuevaPropiedad->idPropiedad;
+                    $nuevaPropiedadCaracteristica->idCaracteristica = $servicio;
+                    $nuevaPropiedadCaracteristica->idTipoCaracteristica = 1;
+                    $nuevaPropiedadCaracteristica->save();
+                }
+            }
+            if(isset($request->comodidadesEquipamientos))
+            {
+                foreach ($request->comodidadesEquipamientos as  $comodidadEquipamiento) {
+                    $nuevaPropiedadCaracteristica = new PropiedadCaracteristica();
+                    $nuevaPropiedadCaracteristica->idCategoria = $categoria;
+                    $nuevaPropiedadCaracteristica->idPropiedad = $nuevaPropiedad->idPropiedad;
+                    $nuevaPropiedadCaracteristica->idCaracteristica = $comodidadEquipamiento;
+                    $nuevaPropiedadCaracteristica->idTipoCaracteristica = 2;
+                    $nuevaPropiedadCaracteristica->save();
+                }
+            }
+            if(isset($request->ambientes))
+            {
+                foreach ($request->ambientes as  $ambiente) {
+                    $nuevaPropiedadCaracteristica = new PropiedadCaracteristica();
+                    $nuevaPropiedadCaracteristica->idCategoria = $categoria;
+                    $nuevaPropiedadCaracteristica->idPropiedad = $nuevaPropiedad->idPropiedad;
+                    $nuevaPropiedadCaracteristica->idCaracteristica = $ambiente;
+                    $nuevaPropiedadCaracteristica->idTipoCaracteristica = 4;
+                    $nuevaPropiedadCaracteristica->save();
+                }
+            }
+            if(isset($request->espaciosComunes))
+            {
+                foreach ($request->espaciosComunes as  $espacioComun) {
+                    $nuevaPropiedadCaracteristica = new PropiedadCaracteristica();
+                    $nuevaPropiedadCaracteristica->idCategoria = $categoria;
+                    $nuevaPropiedadCaracteristica->idPropiedad = $nuevaPropiedad->idPropiedad;
+                    $nuevaPropiedadCaracteristica->idCaracteristica = $espacioComun;
+                    $nuevaPropiedadCaracteristica->idTipoCaracteristica = 5;
+                    $nuevaPropiedadCaracteristica->save();
+                }
+            }
+            if(isset($request->seguridades))
+            {
+                foreach ($request->seguridades as  $seguridad) {
+                    $nuevaPropiedadCaracteristica = new PropiedadCaracteristica();
+                    $nuevaPropiedadCaracteristica->idCategoria = $categoria;
+                    $nuevaPropiedadCaracteristica->idPropiedad = $nuevaPropiedad->idPropiedad;
+                    $nuevaPropiedadCaracteristica->idCaracteristica = $seguridad;
+                    $nuevaPropiedadCaracteristica->idTipoCaracteristica = 3;
+                    $nuevaPropiedadCaracteristica->save();
+                }
+            }
+            DB::commit();
 
-        foreach ($espaciosComunes as  $espacioComun) {
-            $nuevaPropiedadCaracteristica = new PropiedadCaracteristica();
-            $nuevaPropiedadCaracteristica = $request->categoria;
-            $nuevaPropiedadCaracteristica = $nuevaPropiedad->idPropiedad;
-            $nuevaPropiedadCaracteristica = $espacioComun;
-            $nuevaPropiedadCaracteristica = 5;
-            $nuevaPropiedadCaracteristica->save();
-        }
-
-        foreach ($seguridades as  $seguridad) {
-            $nuevaPropiedadCaracteristica = new PropiedadCaracteristica();
-            $nuevaPropiedadCaracteristica = $request->categoria;
-            $nuevaPropiedadCaracteristica = $nuevaPropiedad->idPropiedad;
-            $nuevaPropiedadCaracteristica = $seguridad;
-            $nuevaPropiedadCaracteristica = 3;
-            $nuevaPropiedadCaracteristica->save();
-        }
-
-
-
-        toastr()->success('PropiedadCreada');
-        return back();
+            toastr()->success('PropiedadCreada','Exito!',['positionClass' => 'toast-top-right']);
+            return redirect('/');
+       } catch (Exception $e) {
+            DB::rollBack();
+            toastr()->error($e->getMessage());
+            return back();
+       }
     }
 
     /**

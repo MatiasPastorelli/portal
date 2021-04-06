@@ -22,7 +22,7 @@
                   </div>
                 </li>
                @if (Session::has('idUsuario'))
-                  <li class="nav-item dropdown">
+                <li class="nav-item dropdown">
                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                      {{ Session::get('nombreUsuario') }}
@@ -33,17 +33,25 @@
                         <a class="dropdown-item" href="my-properties.html">Planes para profesionales</a>
                         <a class="dropdown-item" href="{{ asset('/cerrarSesion') }}">Salir</a>
                      </div>
-                  </li>
+                </li>
                @endif
+               @if (Session::has('idUsuario'))
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Admin
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownPortfolio">
+                    <a class="dropdown-item" href="{{asset('/caracteristica')}}">Caracteristica Propiedad</a>
+                    </div>
+                </li>
+                @endif
             </ul>
+
             @if (!Session::has('idUsuario'))
                <div class="my-2 my-lg-0">
                   <ul class="list-inline main-nav-right">
                      <li class="list-inline-item">
                         <a class="btn btn-link btn-sm" href="{{ asset('/login') }}">Ingresa</a>
-                     </li>
-                     <li class="list-inline-item">
-                        <a class="btn btn-success btn-sm" href="{{ asset('/registrar') }}">Crea tu cuenta</a>
                      </li>
                   </ul>
                </div>

@@ -21,6 +21,7 @@ Route::get('/olvidoClave', 'UsuarioController@olvidoClave');
 Route::post('/olvidoClave', 'UsuarioController@enviarLink');
 Route::get('/olvidoClave-api', 'ActivarCuentaController@olvidoClave');
 Route::post('reestablecer-password', 'UsuarioController@reestablecer');
+
 //rutas de vista
 Route::get('/terminos', function () {
     return view('terminos/terminosCondiciones');
@@ -46,3 +47,9 @@ Route::get('notificacion/errorInterno', 'ActivarCuentaController@errorInterno');
 Route::get('/propiedad','PropiedadController@index');
 Route::get('/propiedadCreate','PropiedadController@create');
 Route::post('/propiedadStore','PropiedadController@store');
+
+//caracteristicas
+Route::get('/caracteristica','CaracteristicaController@index');
+Route::get('/caracteristicaCreate','CaracteristicaController@create');
+Route::post('/caracteristicaStore','CaracteristicaController@store');
+Route::delete('/caracteristicaDestroy/{id}','CaracteristicaController@destroy');

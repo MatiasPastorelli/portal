@@ -3,6 +3,7 @@
     <input type="hidden" id="inputAddr" name="direccion" class="search_addr" size="45">
     <input type="hidden" id="inputLatitude"  name="latitud" class="search_latitude" size="30">
     <input type="hidden" id="inputLongitude" name="longitud" class="search_longitude" size="30">
+    <input type="hidden" id="categoria" name="categoria" value="{{$request->categoria}}">
     <div>
       <div class="card-body m-3">
             <h4>Completa las características del inmueble</h4>

@@ -33,29 +33,27 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-9">
-                            <h5 class="subtitulo-isbast text-center">Caracteristicas</h5>
+                            <h5 class="subtitulo-isbast text-center">Tipo Caracteristicas</h5>
                             </div>
                             <div class="col-3">
-                                <a class="btn btn-success" href="{{asset('/caracteristicaCreate')}}">Agregar</a>
+                                <a class="btn btn-success" href="{{asset('/tipoCaracteristicaCreate')}}">Agregar</a>
                             </div>
                             <table class="table">
                                 <thead>
                                   <tr>
                                     <th scope="col">id</th>
                                     <th scope="col">Nombre</th>
-                                    <th scope="col">Tipo Caracteristica</th>
                                     <th scope="col">editar</th>
                                     <th scope="col">eliminar</th>
                                   </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($caracteristicas as $caracteristica)
+                                    @foreach ($tipoCaracteristicas as $tipo)
                                     <tr>
-                                        <td>{{$caracteristica->idCaracteristica}}</td>
-                                        <td>{{$caracteristica->nombreCaracteristica}}</td>
-                                        <td>{{$caracteristica->nombreTipoCaracteristica}}</td>
-                                        <td><a  class="btn btn-info btn-simple btn-xs" href="/caracteristicaEdit{$caracteristica->idCaracteristica}">Editar</a></td>
-                                        <td><form action="{{ url('/caracteristicaDestroy', ['id' => $caracteristica->idCaracteristica]) }}" method="post">
+                                        <td>{{$tipo->idTipoCaracteristica}}</td>
+                                        <td>{{$tipo->nombreTipoCaracteristica}}</td>
+                                        <td><a  class="btn btn-info btn-simple btn-xs" href="/tipoCaracteristicaEdit{$tipo->idTipoCaracteristica}">Editar</a></td>
+                                        <td><form action="{{ url('/tipoCaracteristicaDestroy', ['id' => $tipo->idTipoCaracteristica]) }}" method="post">
                                             <input class="btn btn-danger btn-simple btn-xs" type="submit" value="Eliminar" />
                                             <input type="hidden" name="_method" value="delete" />
                                             <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -64,7 +62,6 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            <div id="paginador">{{ $caracteristicas->links()}}</div>
                     </div>
                 </div>
 

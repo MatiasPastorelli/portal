@@ -11,6 +11,7 @@ class Caracteristica extends Model
     protected $primaryKey = 'idCaracteristica';
 
     protected $fillable = [
-    	'nombreCaracteristica'
+    	'nombreCaracteristica',
+        'idTipoCaracteristica'
     ];
 }

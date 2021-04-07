@@ -1,13 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
 use App\Caracteristica;
 use App\TipoCaracteristica;
-use Illuminate\Http\Request;
 use Validator;
 use DB;
 
-class CaracteristicaController extends Controller
+
+
+class TipoCaracteristicaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,12 +19,9 @@ class CaracteristicaController extends Controller
      */
     public function index()
     {
-        $caracteristicas = Caracteristica::join('tipos_caracteristicas as tipos','caracteristicas.idTipoCaracteristica','=','tipos.idTipoCaracteristica')
-                                         ->orderby('caracteristicas.idCaracteristica')
-                                         ->paginate(7);
+        $tipoCaracteristicas = TipoCaracteristica::orderby('idTipoCaracteristica')->get();
 
-
-        return view('/caracteristica.index' , compact('caracteristicas'));
+        return view('/tipoCaracteristica.index' , compact('tipoCaracteristicas'));
     }
 
     /**
@@ -31,9 +31,7 @@ class CaracteristicaController extends Controller
      */
     public function create()
     {
-        $tiposCaracteristicas = TipoCaracteristica::orderby('nombreTipoCaracteristica')->get();
-
-        return view('/caracteristica.create', compact('tiposCaracteristicas'));
+        return view('/tipoCaracteristica.create');
     }
 
     /**
@@ -45,8 +43,7 @@ class CaracteristicaController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'nombreCaracteristica' => 'required',
-            'idTipoCaracteristica' => 'required'];
+            'nombreTipoCaracteristica' => 'required'];
 
         $validator = Validator::make($request->all(), $rules);
 
@@ -60,13 +57,13 @@ class CaracteristicaController extends Controller
        try {
             DB::beginTransaction();
 
-            $caracteristica = new Caracteristica();
-            $caracteristica->fill($request->all());
-            $caracteristica->save();
+            $tipoCaracteristica = new TipoCaracteristica();
+            $tipoCaracteristica->fill($request->all());
+            $tipoCaracteristica->save();
 
             DB::commit();
-            toastr()->success('Caracteristica creada','Exito!',['positionClass' => 'toast-top-right']);
-            return redirect('/caracteristica');
+            toastr()->success('Tipo Caracteristica creada','Exito!',['positionClass' => 'toast-top-right']);
+            return redirect('/tipoCaracteristica');
 
        } catch (Exception $e) {
             DB::rollBack();
@@ -117,10 +114,10 @@ class CaracteristicaController extends Controller
      */
     public function destroy($id)
     {
-        $caracteristica = Caracteristica::where('idCaracteristica',$id);
-        $caracteristica->delete();
+        $tipoCaracteristica = TipoCaracteristica::where('idTipoCaracteristica',$id);
+        $tipoCaracteristica->delete();
 
-        toastr()->success('Caracteristica Eliminada','Exito!',['positionClass' => 'toast-top-right']);
-        return redirect('/caracteristica');
+        toastr()->success('Tipo Caracteristica Eliminada','Exito!',['positionClass' => 'toast-top-right']);
+        return redirect('/tipoCaracteristica');
     }
 }

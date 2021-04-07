@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class TipoCaracteristica extends Model
 {
-    protected $table = 'tipoCategorias';
+    protected $table = 'tipos_caracteristicas';
 
-    protected $primaryKey = 'idTipoCategoria';
+    protected $primaryKey = 'idTipoCaracteristica';
 
     protected $fillable = [
-    	'nombreTipoCategoria'
+    	'nombreTipoCaracteristica'
     ];
 }

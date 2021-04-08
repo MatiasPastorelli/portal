@@ -46,11 +46,11 @@
 
                     <div class="my-2 my-lg-0" style="float: right">
                         <ul class="list-inline main-nav-right" style="align:Center ">
-                           <li class="list-inline-item">
-                                <a class="btn btn-link btn-sm" href="/tipoCaracteristica">Cancelar</a>
+                            <li class="list-inline-item">
+                                <button type="submit" class="btn btn-success btn-sm"" >Confirmar</button>
                            </li>
                            <li class="list-inline-item">
-                                <button type="submit" class="btn btn-success btn-sm"" >Confirmar</button>
+                                <a class="btn btn-link btn-sm" href="/tipoComercial">Cancelar</a>
                            </li>
                         </ul>
                      </div>

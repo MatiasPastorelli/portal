@@ -54,7 +54,7 @@
                                         <td>{{$caracteristica->idCaracteristica}}</td>
                                         <td>{{$caracteristica->nombreCaracteristica}}</td>
                                         <td>{{$caracteristica->nombreTipoCaracteristica}}</td>
-                                        <td><a  class="btn btn-info btn-simple btn-xs" href="/caracteristicaEdit{$caracteristica->idCaracteristica}">Editar</a></td>
+                                        <td><a  class="btn btn-info btn-simple btn-xs" href="/caracteristicaEdit/{{$caracteristica->idCaracteristica}}">Editar</a></td>
                                         <td><form action="{{ url('/caracteristicaDestroy', ['id' => $caracteristica->idCaracteristica]) }}" method="post">
                                             <input class="btn btn-danger btn-simple btn-xs" type="submit" value="Eliminar" />
                                             <input type="hidden" name="_method" value="delete" />

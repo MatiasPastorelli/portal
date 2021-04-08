@@ -41,7 +41,12 @@
                     Admin
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownPortfolio">
-                    <a class="dropdown-item" href="{{asset('/caracteristica')}}">Caracteristica Propiedad</a>
+                    <a class="dropdown-item" href="{{asset('/caracteristica')}}">Caracteristicas</a>
+                    <a class="dropdown-item" href="{{asset('/tipoCaracteristica')}}">Tipos Caracteristicas</a>
+                    <a class="dropdown-item" href="{{asset('/tipoComercial')}}">Tipos comerciales</a>
+                    <a class="dropdown-item" href="{{asset('/caracteristicaCategoria')}}">Caracteristicas Categorias</a>
+                    <a class="dropdown-item" href="{{asset('/moneda')}}">Monedas</a>
+                    <a class="dropdown-item" href="{{asset('/plan')}}">Planes</a>
                     </div>
                 </li>
                 @endif

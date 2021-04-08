@@ -29,16 +29,17 @@
           <div class="col-lg-9 col-md-9">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="subtitulo-isbast text-center">Crear Caracteristica</h5>
+                    <h5 class="subtitulo-isbast text-center">Actualizar Tipo Comercial {{$tiposComerciales->nombreTipoComercial}}</h5>
                 </div>
-                <form action="{{ asset('/tipoCaracteristicaStore') }}" method="post">
+                <form action="{{ asset('/tipoComercialUpdate') }}" method="post">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="idTipoComercial" value="{{ $tiposComerciales->idTipoComercial}}">
                     <div>
                       <div class="card-body m-3">
                             <div class="row">
                                 <div class="form-group col-md-12">
-                                    <label>Nombre Tipo Caracteristica<span class="text-danger">*</span></label>
-                                    <input type="text" name="nombreTipoCaracteristica" class="form-control" >
+                                    <label>Tipo Caracteristica<span class="text-danger">*</span></label>
+                                    <input type="text" name="nombreTipoComercial" value="{{$tiposComerciales->nombreTipoComercial}}" class="form-control" >
                                 </div>
                             </div>
                       </div>
@@ -50,7 +51,7 @@
                                 <button type="submit" class="btn btn-success btn-sm"" >Confirmar</button>
                            </li>
                            <li class="list-inline-item">
-                                <a class="btn btn-link btn-sm" href="/tipoCaracteristica">Cancelar</a>
+                                <a class="btn btn-link btn-sm" href="/tipoComercial">Cancelar</a>
                            </li>
                         </ul>
                      </div>

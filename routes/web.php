@@ -53,20 +53,29 @@ Route::get('/caracteristica','CaracteristicaController@index');
 Route::get('/caracteristicaCreate','CaracteristicaController@create');
 Route::post('/caracteristicaStore','CaracteristicaController@store');
 Route::delete('/caracteristicaDestroy/{id}','CaracteristicaController@destroy');
+Route::get('/caracteristicaEdit/{id}','CaracteristicaController@edit');
+Route::post('/caracteristicaUpdate','CaracteristicaController@update');
 
 //tipo caracteristicas
 Route::get('/tipoCaracteristica','TipoCaracteristicaController@index');
 Route::get('/tipoCaracteristicaCreate','TipoCaracteristicaController@create');
 Route::post('/tipoCaracteristicaStore','TipoCaracteristicaController@store');
 Route::delete('/tipoCaracteristicaDestroy/{id}','TipoCaracteristicaController@destroy');
+Route::get('/tipoCaracteristicaEdit/{id}','TipoCaracteristicaController@edit');
+Route::post('/tipoCaracteristicaUpdate','TipoCaracteristicaController@update');
 
 //tipo comercial
 Route::get('/tipoComercial','TipoComercialController@index');
 Route::get('/tipoComercialCreate','TipoComercialController@create');
 Route::post('/tipoComercialStore','TipoComercialController@store');
 Route::delete('/tipoComercialDestroy/{id}','TipoComercialController@destroy');
+Route::get('/tipoComercialEdit/{id}','TipoComercialController@edit');
+Route::post('/tipoComercialUpdate','TipoComercialController@update');
 
+//caracteristicas categorias
 Route::get('/caracteristicaCategoria','CaracteristicaCategoriaController@index');
 Route::get('/caracteristicaCategoriaCreate','CaracteristicaCategoriaController@create');
 Route::post('/caracteristicaCategoriaStore','CaracteristicaCategoriaController@store');
 Route::delete('/caracteristicaCategoriaDestroy/{id}','CaracteristicaCategoriaController@destroy');
+Route::get('/caracteristicaCategoriaEdit/{id}','CaracteristicaCategoriaController@edit');
+Route::post('/caracteristicaCategoriaUpdate','CaracteristicaCategoriaController@update');

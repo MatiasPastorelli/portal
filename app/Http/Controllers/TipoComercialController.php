@@ -90,7 +90,8 @@ class TipoComercialController extends Controller
      */
     public function edit($id)
     {
-        //
+        $tiposComerciales = TipoComercial::find($id);
+        return view('/tipoComercial.edit', compact('tiposComerciales'));
     }
 
     /**
@@ -100,10 +101,36 @@ class TipoComercialController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $rules = [
+            'nombreTipoComercial' => 'required'];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails())
+        {
+            $errors = $validator->errors();
+            //return $errors;
+            return back()->with('errors', $errors);
+        }
+
+       try {
+            DB::beginTransaction();
+            $tipoComercial = TipoComercial::find($request->idTipoComercial);
+            $tipoComercial->nombreTipoCaracteristica = $request->nombreTipoComercial;
+            $tipoComercial->save();
+
+            DB::commit();
+            toastr()->success('Tipo Comercial Actualizada','Exito!',['positionClass' => 'toast-top-right']);
+            return redirect('/tipoComercial');
+        } catch (Exception $e) {
+            DB::rollBack();
+            toastr()->error($e->getMessage());
+            return back();
+       }
     }
+
 
     /**
      * Remove the specified resource from storage.

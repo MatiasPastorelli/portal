@@ -29,16 +29,17 @@
           <div class="col-lg-9 col-md-9">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="subtitulo-isbast text-center">Crear Caracteristica</h5>
+                    <h5 class="subtitulo-isbast text-center">Actualizar Tipo Caracteristica {{$tiposCaracteristicas->nombreTipoCaracteristica}}</h5>
                 </div>
-                <form action="{{ asset('/tipoCaracteristicaStore') }}" method="post">
+                <form action="{{ asset('/tipoCaracteristicaUpdate') }}" method="post">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="idTipoCaracteristica" value="{{ $tiposCaracteristicas->idTipoCaracteristica}}">
                     <div>
                       <div class="card-body m-3">
                             <div class="row">
                                 <div class="form-group col-md-12">
-                                    <label>Nombre Tipo Caracteristica<span class="text-danger">*</span></label>
-                                    <input type="text" name="nombreTipoCaracteristica" class="form-control" >
+                                    <label>Tipo Caracteristica<span class="text-danger">*</span></label>
+                                    <input type="text" name="nombreTipoCaracteristica" value="{{$tiposCaracteristicas->nombreTipoCaracteristica}}" class="form-control" >
                                 </div>
                             </div>
                       </div>

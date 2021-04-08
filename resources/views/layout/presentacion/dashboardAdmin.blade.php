@@ -19,7 +19,14 @@
              <li class="nav-item">
                 <a class="nav-link" href="{{asset('/caracteristicaCategoria')}}">Caracteristicas Categorias</a>
              </li>
+             <li class="nav-item">
+                <a class="nav-link" href="{{asset('/moneda')}}">Monedas</a>
+             </li>
+             <li class="nav-item">
+                <a class="nav-link" href="{{asset('/plan')}}">Planes</a>
+             </li>
           </ul>
        </div>
     </div>
  </div>
+

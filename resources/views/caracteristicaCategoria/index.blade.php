@@ -59,7 +59,7 @@
                                         <td>{{$caracteristica->nombreTipoCaracteristica}}</td>
                                         <td>{{$caracteristica->nombreCategoria}}</td>
                                         <td>{{$caracteristica->nombreTipoComercial}}</td>
-                                        <td><a  class="btn btn-info btn-simple btn-xs" href="/caracteristicaCategoriaEdit{$caracteristica->idCaracteristicaCategoria}">Editar</a></td>
+                                        <td><a  class="btn btn-info btn-simple btn-xs" href="/caracteristicaCategoriaEdit/{{$caracteristica->idCaracteristicaCategoria}}">Editar</a></td>
                                         <td><form action="{{ url('/caracteristicaCategoriaDestroy', ['id' => $caracteristica->idCaracteristicaCategoria]) }}" method="post">
                                             <input class="btn btn-danger btn-simple btn-xs" type="submit" value="Eliminar" />
                                             <input type="hidden" name="_method" value="delete" />

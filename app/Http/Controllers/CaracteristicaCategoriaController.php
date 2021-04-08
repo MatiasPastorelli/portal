@@ -73,12 +73,20 @@ class CaracteristicaCategoriaController extends Controller
        try {
             DB::beginTransaction();
 
-            $caracteristicaCategoria = new CaracteristicaCategoria();
-            $caracteristicaCategoria->fill($request->all());
-            $caracteristicaCategoria->save();
+            foreach ($request->idCaracteristica as $caracteristica) {
+
+                $caracteristicaCategoria = new CaracteristicaCategoria();
+                $caracteristicaCategoria->idCaracteristica = $caracteristica;
+                $caracteristicaCategoria->idTipoCaracteristica = $request->idTipoCaracteristica;
+                $caracteristicaCategoria->idCategoria = $request->idCategoria;
+                $caracteristicaCategoria->idTipoComercial = $request->idTipoComercial;
+                $caracteristicaCategoria->save();
+
+            }
+
 
             DB::commit();
-            toastr()->success('Caracteristica Categoria creada','Exito!',['positionClass' => 'toast-top-right']);
+            toastr()->success('Caracteristicas Categorias creadas','Exito!',['positionClass' => 'toast-top-right']);
             return redirect('/caracteristicaCategoria');
 
        } catch (Exception $e) {
@@ -107,7 +115,13 @@ class CaracteristicaCategoriaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $caracteristicasCategorias = CaracteristicaCategoria::find($id);
+        $tiposCaracteristicas = TipoCaracteristica::get();
+        $tiposComerciales = TipoComercial::get();
+        $caracteristicas = Caracteristica::get();
+        $categorias = Categoria::get();
+
+        return view('/caracteristicaCategoria.edit', compact('tiposCaracteristicas','tiposComerciales','caracteristicas','categorias','caracteristicasCategorias'));
     }
 
     /**
@@ -117,9 +131,40 @@ class CaracteristicaCategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $rules = [
+            'idCaracteristica' => 'required',
+            'idTipoCaracteristica' => 'required',
+            'idCategoria' => 'required',
+            'idTipoComercial' => 'required'];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails())
+        {
+            $errors = $validator->errors();
+            //return $errors;
+            return back()->with('errors', $errors);
+        }
+
+       try {
+            DB::beginTransaction();
+            $caracteristicaCategoria = CaracteristicaCategoria::find($request->idCaracteristicaCategoria);
+            $caracteristicaCategoria->idCategoria = $request->idCategoria;
+            $caracteristicaCategoria->idCaracteristica = $request->idCaracteristica;
+            $caracteristicaCategoria->idTipoCaracteristica = $request->idTipoCaracteristica;
+            $caracteristicaCategoria->idTipoComercial = $request->idTipoComercial;
+            $caracteristicaCategoria->save();
+
+            DB::commit();
+            toastr()->success('Caracteristica Categoria Actualizada','Exito!',['positionClass' => 'toast-top-right']);
+            return redirect('/caracteristicaCategoria');
+        } catch (Exception $e) {
+            DB::rollBack();
+            toastr()->error($e->getMessage());
+            return back();
+       }
     }
 
     /**
@@ -130,10 +175,10 @@ class CaracteristicaCategoriaController extends Controller
      */
     public function destroy($id)
     {
-        $tipoCaracteristica = TipoCaracteristica::where('idTipoCaracteristica',$id);
-        $tipoCaracteristica->delete();
+        $caracteristicaCategoria = CaracteristicaCategoria::where('idCaracteristicaCategoria',$id);
+        $caracteristicaCategoria->delete();
 
         toastr()->success('Tipo Caracteristica Eliminada','Exito!',['positionClass' => 'toast-top-right']);
-        return redirect('/tipoCaracteristica');
+        return redirect('/caracteristicaCategoria');
     }
 }

@@ -94,7 +94,9 @@ class CaracteristicaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $caracteristicas = Caracteristica::find($id);
+        $tiposCaracteristicas = TipoCaracteristica::get();
+        return view('/caracteristica.edit', compact('caracteristicas','tiposCaracteristicas'));
     }
 
     /**
@@ -104,9 +106,37 @@ class CaracteristicaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $rules = [
+            'nombreCaracteristica' => 'required',
+            'idTipoCaracteristica' => 'required'];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails())
+        {
+            $errors = $validator->errors();
+            //return $errors;
+            return back()->with('errors', $errors);
+        }
+
+       try {
+            DB::beginTransaction();
+            $caracteristica = Caracteristica::find($request->idCaracteristica);
+            $caracteristica->nombreCaracteristica = $request->nombreCaracteristica;
+            $caracteristica->idTipoCaracteristica = $request->idTipoCaracteristica;
+            $caracteristica->save();
+
+            DB::commit();
+            toastr()->success('Caracteristica Actualizada','Exito!',['positionClass' => 'toast-top-right']);
+            return redirect('/caracteristica');
+
+       } catch (Exception $e) {
+            DB::rollBack();
+            toastr()->error($e->getMessage());
+            return back();
+       }
     }
 
     /**

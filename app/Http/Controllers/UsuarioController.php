@@ -178,6 +178,7 @@ class UsuarioController extends Controller
             'nombreUsuario' => $request->nombre,
             'apellidoUsuario' => $request->apellido,
             'rutUsuario' => $request->rut,
+            'idTipoUsuario' => 1,
             'emailUsuario' => $request->email,
             'passwordUsuario' => $request->password,
             'aceptaTerminos' => 1,

@@ -25,6 +25,9 @@
              <li class="nav-item">
                 <a class="nav-link" href="{{asset('/plan')}}">Planes</a>
              </li>
+             <li class="nav-item">
+                <a class="nav-link" href="{{asset('/orientacion')}}">Orientacion</a>
+             </li>
           </ul>
        </div>
     </div>

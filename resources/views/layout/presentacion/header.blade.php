@@ -47,6 +47,7 @@
                     <a class="dropdown-item" href="{{asset('/caracteristicaCategoria')}}">Caracteristicas Categorias</a>
                     <a class="dropdown-item" href="{{asset('/moneda')}}">Monedas</a>
                     <a class="dropdown-item" href="{{asset('/plan')}}">Planes</a>
+                    <a class="dropdown-item" href="{{asset('/plan')}}">Orientaciones</a>
                     </div>
                 </li>
                 @endif

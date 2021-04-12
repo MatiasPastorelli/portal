@@ -55,15 +55,9 @@
                     <label>Orientacion<span class="text-danger">*</span></label>
                     <select class="form-control custom-select" name="orientacion">
                         <option selected>Elegir</option>
-                        <option>NO</option>
-                        <option>NP</option>¨
-                        <option>SO</option>
-                        <option>SP</option>
-                        <option>NOSP</option>
-                        <option>S</option>
-                        <option>P</option>
-                        <option>N</option>
-                        <option>O</option>
+                        @foreach ($orientaciones as $orientacion)
+                        <option value="{{$orientacion->idOrientacion}}">{{$orientacion->nombreOrientacion}}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="form-group col-md-6">
@@ -337,17 +331,18 @@
       </div>
     </div>
 
-    <div class="my-2 my-lg-0" style="float: right">
-        <ul class="list-inline main-nav-right" style="align:Center ">
-           <li class="list-inline-item">
-            <a class="btn btn-link btn-sm" href="/">Cancelar</a>
-           </li>
-           <li class="list-inline-item">
-              <button type="submit" class="btn btn-success btn-sm"" >Confirmar</button>
-           </li>
-        </ul>
-     </div>
-     <br>
-
+    <div class="card-body m-2">
+        <div class="my-2 my-lg-0" style="float: right">
+            <ul class="list-inline main-nav-right" style="align:Center ">
+            <li class="list-inline-item">
+                <button type="submit" class="btn btn-success btn-sm" onclick="confirmarMaps()">Confirmar</button>
+            </li>
+            <li class="list-inline-item">
+                <a class="btn btn-link btn-sm" href="/">Cancelar</a>
+            </li>
+            </ul>
+        </div>
+    </div>
+    <br>
 </form>
 

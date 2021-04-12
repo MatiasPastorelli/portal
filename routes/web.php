@@ -47,6 +47,8 @@ Route::get('notificacion/errorInterno', 'ActivarCuentaController@errorInterno');
 Route::get('/propiedad','PropiedadController@index');
 Route::get('/propiedadCreate','PropiedadController@create');
 Route::post('/propiedadStore','PropiedadController@store');
+Route::post('/img/subir/{id}', 'PropiedadController@subirImagen');
+Route::post('/img/eliminar', 'PropiedadController@eliminarImagen');
 
 //caracteristicas
 Route::get('/caracteristica','CaracteristicaController@index');

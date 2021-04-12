@@ -10,6 +10,9 @@ use App\PropiedadCaracteristica;
 use App\Caracteristica;
 use App\TipoCaracteristica;
 use App\Propiedad;
+use App\Orientacion;
+use App\Plan;
+use App\Foto;
 use Session;
 use Validator;
 use DB;
@@ -47,7 +50,13 @@ class PropiedadController extends Controller
 			return view ('propiedad.createP2', compact('request','tiposComerciales'));
     	}
 
-        if ($request->p == 3) {// paso 3 confirmar categoria
+
+        if ($request->p == 3) {// paso 2 tipo comercial
+            //dd($request->categoria);
+			return view ('propiedad.createP3', compact('request'));
+    	}
+
+        if ($request->p == 4) {// paso 3 confirmar categoria
             //dd($request->categoria);
             $categoria = decrypt($request->categoria);
 
@@ -81,8 +90,12 @@ class PropiedadController extends Controller
             ->where('caracteristicas_categorias.idTipoComercial',$request->tipoComercial)
             ->where('caracteristicas_categorias.idTipoCaracteristica',5)->get();
 
-			return view ('propiedad.createP3', compact('request','servicios','comodidades'
-            ,'ambientes','espaciosComunes','seguridades'));
+            $orientaciones = Orientacion::get();
+
+            $planes = Plan::get();
+
+			return view ('propiedad.createP4', compact('request','servicios','comodidades'
+            ,'ambientes','espaciosComunes','seguridades','orientaciones','plan'));
     	}
     }
 
@@ -178,14 +191,60 @@ class PropiedadController extends Controller
             }
             DB::commit();
 
-            toastr()->success('PropiedadCreada','Exito!',['positionClass' => 'toast-top-right']);
-            return redirect('/');
+            $propiedad = $nuevaPropiedad->idPropiedad;
+            return view ('propiedad.createP5', compact('propiedad'));
        } catch (Exception $e) {
             DB::rollBack();
             toastr()->error($e->getMessage());
             return back();
        }
     }
+
+
+    public function subirImagen($id, Request $request) { // sube imagenes de propiedades
+		try {
+
+			// obteniendo archivo y path universal para almacenar las imagenes
+			$path = public_path().'/img/propiedades/';
+            $file = $request->file('file');
+            $fileName = $file->getClientOriginalName();
+            $file->move($path, $fileName);
+
+		    // guardando ruta donde fue almacenada la imagen de la propiedad en la base de datos
+		    $foto = new Foto();
+		    $foto->idPropiedad = $id;
+		    $foto->linkFoto = $fileName;
+		    $foto->save();
+
+		} catch (QueryException $e) {
+			toastr()->warning('Error durante la subida de la(s) imagen(es). Revise que los nombres no tengan espacios ni caracteres invalidos');
+			return back();
+		}
+	}
+
+
+    public function eliminarImagen(Request $request) {
+		try {
+            if ($request->fileName) {
+            	$eliminarFoto = Foto::where('linkFoto', $request->fileName)
+                                    ->where('idPropiedad',$request->propiedad)->firstOrFail();
+                                    dd($eliminarFoto);
+            	$eliminarFoto->delete();
+                File::delete(public_path('img/propiedades/' . $request->fileName));
+            } else {
+            	toastr()->warning('Debe indicar un nombre de archivo');
+            }
+		} catch (QueryException $e) {
+			toastr()->error('Error de conexion, favor intente nuevamente');
+			return back();
+		} catch (ModelNotFoundException $e) {
+			toastr()->error('Imagen no encontrada');
+			return back();
+		} catch (Exception $e) {
+			toastr()->error('Se ha producido un error, favor intente nuevamente');
+			return back();
+		}
+	}
 
     /**
      * Display the specified resource.

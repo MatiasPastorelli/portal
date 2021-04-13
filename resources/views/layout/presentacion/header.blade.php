@@ -28,7 +28,7 @@
                      {{ Session::get('nombreUsuario') }}
                      </a>
                      <div class="dropdown-menu" aria-labelledby="navbarDropdownPortfolio">
-                        <a class="dropdown-item" href="user-profile.html">Propiedades</a>
+                        <a class="dropdown-item" href="{{asset('/propiedad')}}">Propiedades</a>
                         <a class="dropdown-item" href="social-profiles.html">Historias</a>
                         <a class="dropdown-item" href="my-properties.html">Planes para profesionales</a>
                         <a class="dropdown-item" href="{{ asset('/cerrarSesion') }}">Salir</a>

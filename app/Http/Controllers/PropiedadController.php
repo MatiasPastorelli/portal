@@ -16,6 +16,7 @@ use App\Foto;
 use Session;
 use Validator;
 use DB;
+use Image;
 
 
 class PropiedadController extends Controller
@@ -27,7 +28,15 @@ class PropiedadController extends Controller
      */
     public function index()
     {
-        //
+        $propiedades = Propiedad::where('idUsuario',Session::get('idUsuario'))->paginate(5);
+        return view('/propiedad.index', compact('propiedades'));
+    }
+
+    public function createImagen(Request $request)
+    {
+        $propiedad = $request->id;
+        $fotos = Foto::where('idPropiedad',$request->id)->get();
+        return view('/propiedad.createImagen', compact('fotos','propiedad'));
     }
 
     /**
@@ -130,7 +139,7 @@ class PropiedadController extends Controller
 
             $nuevaPropiedad = new Propiedad();
             $nuevaPropiedad->fill($request->all());
-            $nuevaPropiedad->creador = Session::get('nombreUsuario') . ' ' . Session::get('apellidoUsuario');
+            $nuevaPropiedad->idUsuario = Session::get('idUsuario');
             $nuevaPropiedad->save();
 
             /*foreach para agregar caracteristicas de las propiedades*/
@@ -190,9 +199,10 @@ class PropiedadController extends Controller
                 }
             }
             DB::commit();
-
+            $fotos = Foto::where('idPropiedad', '=', $nuevaPropiedad->idPropiedad)->get();
             $propiedad = $nuevaPropiedad->idPropiedad;
-            return view ('propiedad.createP5', compact('propiedad'));
+            toastr()->success('Propiedad creada!');
+            return redirect('/propiedad');
        } catch (Exception $e) {
             DB::rollBack();
             toastr()->error($e->getMessage());
@@ -203,12 +213,13 @@ class PropiedadController extends Controller
 
     public function subirImagen($id, Request $request) { // sube imagenes de propiedades
 		try {
-
 			// obteniendo archivo y path universal para almacenar las imagenes
-			$path = public_path().'/img/propiedades/';
-            $file = $request->file('file');
-            $fileName = $file->getClientOriginalName();
-            $file->move($path, $fileName);
+			$file = $request->file('file');
+		    $path = public_path() . '/img/propiedades/';
+		    // insertando logo isbast a foto subida de la propiedad
+			$img = Image::make($file);
+		    $fileName = uniqid() . $file->getClientOriginalName();
+		    $img->save($path . $fileName);
 
 		    // guardando ruta donde fue almacenada la imagen de la propiedad en la base de datos
 		    $foto = new Foto();
@@ -227,8 +238,7 @@ class PropiedadController extends Controller
 		try {
             if ($request->fileName) {
             	$eliminarFoto = Foto::where('linkFoto', $request->fileName)
-                                    ->where('idPropiedad',$request->propiedad)->firstOrFail();
-                                    dd($eliminarFoto);
+                                    ->where('idPropiedad',$request->propiedad)->first();
             	$eliminarFoto->delete();
                 File::delete(public_path('img/propiedades/' . $request->fileName));
             } else {

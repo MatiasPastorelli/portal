@@ -49,7 +49,7 @@ Route::get('/propiedadCreate','PropiedadController@create');
 Route::post('/propiedadStore','PropiedadController@store');
 Route::post('/img/subir/{id}', 'PropiedadController@subirImagen');
 Route::post('/img/eliminar', 'PropiedadController@eliminarImagen');
-
+Route::get('/createImagen', 'PropiedadController@createImagen');
 //caracteristicas
 Route::get('/caracteristica','CaracteristicaController@index');
 Route::get('/caracteristicaCreate','CaracteristicaController@create');

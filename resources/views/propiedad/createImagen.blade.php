@@ -26,11 +26,6 @@
                     </div>
 
                     <div class="card-body">
-                        <!--
-                        <form action="{{ asset('/img/subir/' . $propiedad) }}" class="dropzone" id="my-awesome-dropzone">
-                            @csrf
-                        </form>
-                        -->
                         <div></div>
                         <div class="dropzone" id="myDropZone"></div>
                     </div>
@@ -39,6 +34,37 @@
     </div>
 </div>
 
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>Imagenes</strong><small> Cargadas</small>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        @if (isset($fotos))
+                            @foreach($fotos as $foto)
+                                <div class="col-xl-4">
+                                    <div class="card" style="width: 18rem;">
+                                      <img src="/img/propiedades/{{ $foto->linkFoto }}" class="card-img-top" alt="...">
+                                      <div class="card-footer">
+                                            <form action="/img/eliminar/{{ $foto->linkFoto }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="btn btn-link btn-sm pull-right">Eliminar</button>
+                                            </form>
+                                      </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <div class="row"><div class="col-lg-12">&nbsp;</div></div>
@@ -56,33 +82,12 @@
 <script src="https://unpkg.com/dropzone"></script>
 <script src="https://unpkg.com/cropperjs"></script>
 <script type="text/javascript">
+
     // "myDropZone" es el ID de nuestro formulario usando la notación camelCase
     Dropzone.options.myDropZone = {
         url: '/img/subir/{{$propiedad}}',
         paramName: "file", // Las imágenes se van a usar bajo este nombre de parámetro
-        maxFilesize: 10, // Tamaño máximo en MB
-        addRemoveLinks: true,
-        removedfile: function(file)
-            {
-                var propiedad = {{$propiedad}}
-                var name = file.upload.filename;
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                            },
-                    type: 'POST',
-                    url: '{{ url("/img/eliminar") }}',
-                    data: {fileName: name , Propiedad : propiedad},
-                    success: function (data){
-                        console.log("funciona");
-                    },
-                    error: function(e) {
-                        console.log(e);
-                    }});
-                    var fileRef;
-                    return (fileRef = file.previewElement) != null ?
-                    fileRef.parentNode.removeChild(file.previewElement) : void 0;
-            },
+        maxFilesize: 10,
         headers: {
           'X-CSRF-TOKEN': '{{ csrf_token() }}'
         },
@@ -112,11 +117,11 @@
               // Get the canvas with image data from Cropper.js
               var canvas = cropper.getCroppedCanvas({
                 width: 1024,
-                height: 768 ,
-                minWidth:  1024,
-                minHeight:  768,
-                maxWidth:  1024,
-                maxHeight:  768 ,
+                height: 768,
+                minWidth: 1024,
+                minHeight:768,
+                maxWidth: 1024,
+                maxHeight: 768,
                 imageSmoothingEnabled: true,
                 imageSmoothingQuality: 'high',
               });

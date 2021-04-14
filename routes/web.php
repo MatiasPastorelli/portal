@@ -47,9 +47,13 @@ Route::get('notificacion/errorInterno', 'ActivarCuentaController@errorInterno');
 Route::get('/propiedad','PropiedadController@index');
 Route::get('/propiedadCreate','PropiedadController@create');
 Route::post('/propiedadStore','PropiedadController@store');
+Route::post('/propiedadStorePrecio','PropiedadController@storePrecio');
+Route::delete('/propiedadDestroy/{id}','PropiedadController@destroy');
 Route::post('/img/subir/{id}', 'PropiedadController@subirImagen');
-Route::post('/img/eliminar', 'PropiedadController@eliminarImagen');
+Route::post('/img/eliminar/{id}', 'PropiedadController@eliminarImagen');
 Route::get('/createImagen', 'PropiedadController@createImagen');
+
+
 //caracteristicas
 Route::get('/caracteristica','CaracteristicaController@index');
 Route::get('/caracteristicaCreate','CaracteristicaController@create');

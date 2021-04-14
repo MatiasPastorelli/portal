@@ -33,9 +33,12 @@ class Propiedad extends Model
         'piscina',
         'terraza',
         'usoComercial',
-        'orientacion',
+        'idOrientacion',
+        'precio',
+        'idMoneda',
         'antiguedad',
         'datosOpcionales',
-        'creador'
+        'idUsuario',
+        'fotoPortada'
     ];
 }

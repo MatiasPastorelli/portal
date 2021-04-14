@@ -29,9 +29,20 @@
                         <div></div>
                         <div class="dropzone" id="myDropZone"></div>
                     </div>
+
+                    <div class="card-body m-2">
+                        <div class="my-2 my-lg-0" style="float: right">
+                            <ul class="list-inline main-nav-right" style="align:Center ">
+                            <li class="list-inline-item">
+                                <a class="btn btn-success btn-sm" href="/propiedad">Volver</a>
+                            </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
         </div>
     </div>
+
 </div>
 
 <div class="container">
@@ -50,8 +61,9 @@
                                     <div class="card" style="width: 18rem;">
                                       <img src="/img/propiedades/{{ $foto->linkFoto }}" class="card-img-top" alt="...">
                                       <div class="card-footer">
-                                            <form action="/img/eliminar/{{ $foto->linkFoto }}" method="POST">
+                                            <form action="/img/eliminar/{{ $foto->idFoto }}" method="POST">
                                                 @csrf
+                                                <input id="idPropiedad" name="idPropiedad" type="hidden" value="{{$request->id}}">
                                                 <button type="submit" class="btn btn-link btn-sm pull-right">Eliminar</button>
                                             </form>
                                       </div>
@@ -87,7 +99,8 @@
     Dropzone.options.myDropZone = {
         url: '/img/subir/{{$propiedad}}',
         paramName: "file", // Las imágenes se van a usar bajo este nombre de parámetro
-        maxFilesize: 10,
+        maxFilesize: 1,
+        maxFiles: 1,
         headers: {
           'X-CSRF-TOKEN': '{{ csrf_token() }}'
         },
@@ -172,6 +185,8 @@
                 height:  768,
               },
             });
+        },success: function(file, response){
+            window.location.reload();
         }
     };
 </script>

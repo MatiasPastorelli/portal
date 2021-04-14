@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use App\Categoria;
 use App\TipoComercial;
 use App\CaracteristicaCategoria;
@@ -13,6 +15,7 @@ use App\Propiedad;
 use App\Orientacion;
 use App\Plan;
 use App\Foto;
+use App\Moneda;
 use Session;
 use Validator;
 use DB;
@@ -36,7 +39,7 @@ class PropiedadController extends Controller
     {
         $propiedad = $request->id;
         $fotos = Foto::where('idPropiedad',$request->id)->get();
-        return view('/propiedad.createImagen', compact('fotos','propiedad'));
+        return view('/propiedad.createImagen', compact('fotos','propiedad','request'));
     }
 
     /**
@@ -137,10 +140,20 @@ class PropiedadController extends Controller
             DB::beginTransaction();
             $categoria = decrypt($request->categoria);
 
+            $file = $request->file('fotoPortada');
+		    $path = public_path() . '/img/portadas/';
+
+			$img = Image::make($file);
+		    $fileName = uniqid() . $file->getClientOriginalName();
+		    $img->save($path . $fileName);
+
+
             $nuevaPropiedad = new Propiedad();
             $nuevaPropiedad->fill($request->all());
             $nuevaPropiedad->idUsuario = Session::get('idUsuario');
+            $nuevaPropiedad->fotoPortada = $fileName;
             $nuevaPropiedad->save();
+
 
             /*foreach para agregar caracteristicas de las propiedades*/
             if(isset($request->servicios))
@@ -201,8 +214,9 @@ class PropiedadController extends Controller
             DB::commit();
             $fotos = Foto::where('idPropiedad', '=', $nuevaPropiedad->idPropiedad)->get();
             $propiedad = $nuevaPropiedad->idPropiedad;
-            toastr()->success('Propiedad creada!');
-            return redirect('/propiedad');
+            $monedas = Moneda::get();
+
+            return view('/propiedad.createP5',compact('propiedad','monedas'));
        } catch (Exception $e) {
             DB::rollBack();
             toastr()->error($e->getMessage());
@@ -210,6 +224,42 @@ class PropiedadController extends Controller
        }
     }
 
+    public function storePrecio(Request $request)
+    {
+        $rules = [
+            'precio' => 'required',
+            'idMoneda' => 'required'];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails())
+        {
+            $errors = $validator->errors();
+            //return $errors;
+            return back()->with('errors', $errors);
+        }
+
+
+        try {
+
+            DB::beginTransaction();
+
+            $propiedad = Propiedad::find($request->idPropiedad);
+            $propiedad->precio = $request->precio;
+            $propiedad->idMoneda = $request->idMoneda;
+            $propiedad->save();
+
+            DB::commit();
+
+            return view('/propiedad.createP5',compact('propiedad','monedas'));
+       } catch (Exception $e) {
+            DB::rollBack();
+            toastr()->error($e->getMessage());
+            return back();
+       }
+
+
+    }
 
     public function subirImagen($id, Request $request) { // sube imagenes de propiedades
 		try {
@@ -234,13 +284,15 @@ class PropiedadController extends Controller
 	}
 
 
-    public function eliminarImagen(Request $request) {
+    public function eliminarImagen($id,Request $request) {
 		try {
-            if ($request->fileName) {
-            	$eliminarFoto = Foto::where('linkFoto', $request->fileName)
-                                    ->where('idPropiedad',$request->propiedad)->first();
+            if ($id) {
+            	$eliminarFoto = Foto::where('idFoto', $id)
+                                    ->where('idPropiedad',$request->idPropiedad)->first();
             	$eliminarFoto->delete();
-                File::delete(public_path('img/propiedades/' . $request->fileName));
+                File::delete(public_path('img/propiedades/' . $eliminarFoto->linkFoto));
+
+                return back();
             } else {
             	toastr()->warning('Debe indicar un nombre de archivo');
             }
@@ -298,6 +350,10 @@ class PropiedadController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $propiedad = Propiedad::where('idPropiedad',$id);
+        $propiedad->delete();
+
+        toastr()->success('Propiedad Eliminada','Exito!',['positionClass' => 'toast-top-right']);
+        return redirect('/propiedad');
     }
 }

@@ -128,9 +128,16 @@
                        <a href="#">
                           <div class="row no-gutters">
                              <div class="col-lg-5 col-md-5">
-                                <a class="badge badge-success" href="/createImagen?id={{$propiedad->idPropiedad}}">Editar Fotos</a>
-                                <img class="card-img-top" src="img/list/1.png" alt="Card image cap">
+                                <div class="row">
+                                    <a class="badge badge-success" href="/createImagen?id={{$propiedad->idPropiedad}}"><span class="mdi mdi-tooltip-edit"></span></a>
+                                </div>
+                                <img class="card-img-top" src="/img/portadas/{{ $propiedad->fotoPortada}}" alt="...">
                              </div>
+                             <form action="{{ url('/propiedadDestroy', ['id' => $propiedad->idPropiedad]) }}" method="post">
+                                <button class="badge badge-danger" type="submit"><span class="mdi mdi-delete"></span> </button>
+                                <input type="hidden" name="_method" value="delete" />
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            </form>
                              <div class="col-lg-7 col-md-7">
                                 <div class="card-body">
                                    <h5 class="card-title">{{$propiedad->direccion}}</h5>

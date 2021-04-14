@@ -1,4 +1,4 @@
-<form action="{{ asset('/propiedadStore') }}" method="post">
+<form action="{{ asset('/propiedadStore') }}" method="post" enctype="multipart/form-data">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <input type="hidden" id="inputAddr" name="direccion" class="search_addr" size="45">
     <input type="hidden" id="inputLatitude"  name="latitud" class="search_latitude" size="30">
@@ -53,8 +53,7 @@
             <div class="row">
                 <div class="form-group col-md-6">
                     <label>Orientacion<span class="text-danger">*</span></label>
-                    <select class="form-control custom-select" name="orientacion">
-                        <option selected>Elegir</option>
+                    <select class="form-control custom-select" name="idOrientacion">
                         @foreach ($orientaciones as $orientacion)
                         <option value="{{$orientacion->idOrientacion}}">{{$orientacion->nombreOrientacion}}</option>
                         @endforeach
@@ -69,6 +68,12 @@
                 <div class="form-group col-md-6">
                     <label>Numero de piso de la unidad<span class="text-danger">*</span></label>
                     <input type="text" name="numeroPisoUnidad" class="form-control" >
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Foto Portada<span class="text-danger">*</span></label>
+                    <input id="file" name="fotoPortada" type="file" class="form-control">
+                    <hr>
+                    <div id="preview"></div>
                 </div>
             </div>
             <br>

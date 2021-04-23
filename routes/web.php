@@ -48,6 +48,7 @@ Route::get('/propiedad','PropiedadController@index');
 Route::get('/propiedadCreate','PropiedadController@create');
 Route::post('/propiedadStore','PropiedadController@store');
 Route::post('/propiedadStorePrecio','PropiedadController@storePrecio');
+Route::post('/propiedadStorePlan','PropiedadController@storePlan');
 Route::delete('/propiedadDestroy/{id}','PropiedadController@destroy');
 Route::post('/img/subir/{id}', 'PropiedadController@subirImagen');
 Route::post('/img/eliminar/{id}', 'PropiedadController@eliminarImagen');
@@ -109,3 +110,19 @@ Route::post('/orientacionStore','OrientacionController@store');
 Route::delete('/orientacionDestroy/{id}','OrientacionController@destroy');
 Route::get('/orientacionEdit/{id}','OrientacionController@edit');
 Route::post('/orientacionUpdate','OrientacionController@update');
+
+//ofertas
+Route::get('/oferta','OfertaController@index');
+Route::get('/ofertaCreate','OfertaController@create');
+Route::post('/ofertaStore','OfertaController@store');
+Route::delete('/ofertaDestroy/{id}','OfertaController@destroy');
+Route::get('/ofertaEdit/{id}','OfertaController@edit');
+Route::post('/ofertaUpdate','OfertaController@update');
+
+//ofertas planes
+Route::get('/ofertaPlan','OfertaPlanController@index');
+Route::get('/ofertaPlanCreate','OfertaPlanController@create');
+Route::post('/ofertaPlanStore','OfertaPlanController@store');
+Route::delete('/ofertaPlanDestroy/{id}','OfertaPlanController@destroy');
+Route::get('/ofertaPlanEdit/{id}','OfertaPlanController@edit');
+Route::post('/ofertaPlanUpdate','OfertaPlanController@update');

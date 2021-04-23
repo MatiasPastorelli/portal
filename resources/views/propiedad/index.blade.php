@@ -129,12 +129,13 @@
                           <div class="row no-gutters">
                              <div class="col-lg-5 col-md-5">
                                 <div class="row">
-                                    <a class="badge badge-success" href="/createImagen?id={{$propiedad->idPropiedad}}"><span class="mdi mdi-tooltip-edit"></span></a>
+                                    <a class="badge badge-success" href="/createImagen?id={{$propiedad->idPropiedad}}"><span ><i class="mdi mdi-table-edit"></i></span></a>
+
                                 </div>
                                 <img class="card-img-top" src="/img/portadas/{{ $propiedad->fotoPortada}}" alt="...">
                              </div>
                              <form action="{{ url('/propiedadDestroy', ['id' => $propiedad->idPropiedad]) }}" method="post">
-                                <button class="badge badge-danger" type="submit"><span class="mdi mdi-delete"></span> </button>
+                                <button class="badge badge-danger" type="submit"><i class="mdi mdi-delete-forever"></i></button>
                                 <input type="hidden" name="_method" value="delete" />
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             </form>

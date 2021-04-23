@@ -28,6 +28,12 @@
              <li class="nav-item">
                 <a class="nav-link" href="{{asset('/orientacion')}}">Orientacion</a>
              </li>
+             <li class="nav-item">
+                <a class="nav-link" href="{{asset('/oferta')}}">Ofertas</a>
+             </li>
+             <li class="nav-item">
+                <a class="nav-link" href="{{asset('/ofertaPlan')}}">Ofertas Planes</a>
+             </li>
           </ul>
        </div>
     </div>

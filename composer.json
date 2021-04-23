@@ -13,6 +13,7 @@
         "intervention/image": "^2.5",
         "laravel/framework": "^6.20",
         "laravel/tinker": "^2.5",
+        "nesbot/carbon": "^2.46",
         "yoeunes/toastr": "^1.2"
     },
     "require-dev": {

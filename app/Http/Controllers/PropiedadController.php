@@ -14,6 +14,7 @@ use App\TipoCaracteristica;
 use App\Propiedad;
 use App\Orientacion;
 use App\Plan;
+use App\PlanPropiedad;
 use App\Foto;
 use App\Moneda;
 use Session;
@@ -239,7 +240,6 @@ class PropiedadController extends Controller
             return back()->with('errors', $errors);
         }
 
-
         try {
 
             DB::beginTransaction();
@@ -250,8 +250,32 @@ class PropiedadController extends Controller
             $propiedad->save();
 
             DB::commit();
+            $planes = Plan::get();
+            $propiedad = $request->idPropiedad;
 
-            return view('/propiedad.createP5',compact('propiedad','monedas'));
+            return view('/propiedad.createP6',compact('propiedad','planes'));
+       } catch (Exception $e) {
+            DB::rollBack();
+            toastr()->error($e->getMessage());
+            return back();
+       }
+
+
+    }
+
+    public function storePlan(Request $request)
+    {
+        try {
+
+            DB::beginTransaction();
+
+            $planPropiedad = new PlanPropiedad;
+            $planPropiedad->fill($request->all());
+            $planPropiedad->save();
+
+            DB::commit();
+            toastr()->success('Propiedad creada','Exito!',['positionClass' => 'toast-top-right']);
+            return redirect('/propiedad');
        } catch (Exception $e) {
             DB::rollBack();
             toastr()->error($e->getMessage());
